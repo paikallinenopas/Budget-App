@@ -1,31 +1,40 @@
 let saldo = 0;
 
+const saldoElementti = document.getElementById("saldo");
+const tapahtumat = document.getElementById("tapahtumat");
+
 function paivitaSaldo() {
-    document.getElementById("saldo").textContent = saldo + " €";
+    saldoElementti.textContent = saldo + " €";
 }
 
 function lisaaTulo() {
     let summa = Number(prompt("Anna tulon määrä (€):"));
 
-    if (!summa) return;
+    if (!isNaN(summa) && summa > 0) {
+        saldo += summa;
+        paivitaSaldo();
 
-    saldo += summa;
+        let uusi = document.createElement("li");
+        uusi.textContent = "+ " + summa + " €";
+        uusi.style.color = "green";
 
-    let lista = document.getElementById("tapahtumat");
-    lista.innerHTML += `<li>💵 Tulo +${summa} €</li>`;
-
-    paivitaSaldo();
+        tapahtumat.appendChild(uusi);
+    }
 }
 
 function lisaaMeno() {
     let summa = Number(prompt("Anna menon määrä (€):"));
 
-    if (!summa) return;
+    if (!isNaN(summa) && summa > 0) {
+        saldo -= summa;
+        paivitaSaldo();
 
-    saldo -= summa;
+        let uusi = document.createElement("li");
+        uusi.textContent = "- " + summa + " €";
+        uusi.style.color = "red";
 
-    let lista = document.getElementById("tapahtumat");
-    lista.innerHTML += `<li>💸 Meno -${summa} €</li>`;
-
-    paivitaSaldo();
+        tapahtumat.appendChild(uusi);
+    }
 }
+
+paivitaSaldo();
