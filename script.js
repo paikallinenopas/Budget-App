@@ -27,7 +27,6 @@ function paivitaSaldo() {
     menotElementti.textContent = menot + " €";
 
     tallennaTiedot();
-}
 
 function lisaaTulo() {
     let summa = Number(prompt("Anna tulon määrä (€):"));
