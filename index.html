@@ -8,13 +8,19 @@
 </head>
 <body>
 
+<body>
+
 <h1>💰 Budget App</h1>
 <p>Tervetuloa omaan taloudenhallintasovellukseesi!</p>
 
-<button>Lisää meno</button>
-<button>Lisää tulo</button>
+<h2>Saldo: <span id="saldo">0 €</span></h2>
+
+<button onclick="lisaaTulo()">Lisää tulo</button>
+<button onclick="lisaaMeno()">Lisää meno</button>
+
+<h3>Tapahtumat</h3>
+<ul id="tapahtumat"></ul>
 
 <script src="script.js"></script>
 
-</body>
-</html>
+</body>    
