@@ -69,8 +69,29 @@ button {
     font-size: 16px;
 }
 
+button {
+    width: 100%;
+    padding: 16px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
 button:hover {
-    background: #219150;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.35);
+}
+
+button:active {
+    transform: scale(0.98);
+}
 }
 
 #tapahtumat {
@@ -103,4 +124,27 @@ button:hover {
     font-size: 42px;
     font-weight: bold;
     margin-top: 10px;
+}
+
+    #tapahtumat {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#tapahtumat li {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+#tapahtumat li:hover {
+    transform: translateX(5px);
 }
