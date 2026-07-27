@@ -551,24 +551,22 @@ h3{
 
 .saldo-kortti::after{
 
-    .saldo-card{
-    background:#fff;
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    margin-bottom:30px;
-}
+    content:"";
 
-.saldo-label{
-    color:#6b7280;
-    font-size:15px;
-}
+    position:absolute;
 
-.saldo-card h1{
-    margin-top:10px;
-    font-size:48px;
-    color:#111827;
-    
+    width:180px;
+
+    height:180px;
+
+    left:-70px;
+
+    bottom:-70px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.05);
+
 }
 
 /* ======================================================
@@ -2566,75 +2564,3 @@ body.dark{
 
 }
 
-.page{
-
-    display:none;
-
-    animation:fade .25s;
-
-}
-
-.page.active{
-
-    display:block;
-
-}
-
-.page-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    margin-bottom:30px;
-
-}
-
-.page-header h1{
-
-    margin:0;
-
-}
-
-.home-btn,
-.menu-btn{
-
-    width:44px;
-
-    height:44px;
-
-    border:none;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    font-size:22px;
-
-    background:#1d4ed8;
-
-    color:white;
-
-}
-
-@keyframes fade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(10px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
