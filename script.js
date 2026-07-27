@@ -595,3 +595,78 @@ function paivitaTavoite() {
 
     }
 }
+
+// ===============================
+// CHART.JS
+// ===============================
+
+let saldoChart;
+let kategoriaChart;
+let tulotMenotChart;
+
+function paivitaKaaviot() {
+
+    // Tuhoa vanhat kaaviot
+
+    if (saldoChart) saldoChart.destroy();
+    if (kategoriaChart) kategoriaChart.destroy();
+    if (tulotMenotChart) tulotMenotChart.destroy();
+
+    // -------------------------
+    // SALDON KEHITYS
+    // -------------------------
+
+    let saldo = 0;
+
+    const saldot = [];
+    const paivat = [];
+
+    tapahtumat.forEach(t => {
+
+        if (t.tyyppi === "tulo") {
+
+            saldo += t.summa;
+
+        } else {
+
+            saldo -= t.summa;
+
+        }
+
+        saldot.push(saldo);
+
+        paivat.push(t.paivamaara || "");
+
+    });
+
+    saldoChart = new Chart(
+
+        document.getElementById("saldoChart"),
+
+        {
+
+            type: "line",
+
+            data: {
+
+                labels: paivat,
+
+                datasets: [{
+
+                    label: "Saldo",
+
+                    data: saldot,
+
+                    borderWidth: 3,
+
+                    tension: 0.3,
+
+                    fill: false
+
+                }]
+
+            }
+
+        }
+
+    );
