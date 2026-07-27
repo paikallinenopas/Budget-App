@@ -32,9 +32,56 @@
 </div>
 
 </div class="stats-row">
-<button onclick="lisaaTulo()">+ Lisää tulo</button>
+<div class="form-card">
 
-<button onclick="lisaaMeno()">− Lisää meno</button>
+    <div class="form-row">
+
+        <div class="form-group">
+            <label>Nimi</label>
+            <input type="text" id="nimi" placeholder="Esim. Lidl">
+        </div>
+
+        <div class="form-group">
+            <label>Summa (€)</label>
+            <input type="number" id="summa" placeholder="0">
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <label>Kategoria</label>
+
+            <select id="kategoria">
+                <option>Ruoka</option>
+                <option>Palkka</option>
+                <option>Asuminen</option>
+                <option>Auto</option>
+                <option>Vapaa-aika</option>
+                <option>Sijoitukset</option>
+                <option>Muu</option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label>Tyyppi</label>
+
+            <select id="tyyppi">
+                <option value="tulo">Tulo</option>
+                <option value="meno">Meno</option>
+            </select>
+
+        </div>
+
+    </div>
+
+    <button onclick="lisaaTapahtuma()">
+        Lisää tapahtuma
+    </button>
+
+</div>
 
 <div 
 
