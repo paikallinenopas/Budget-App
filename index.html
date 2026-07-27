@@ -36,15 +36,52 @@
 
     <div class="form-row">
 
-        <div class="form-group">
-            <label>Nimi</label>
-            <input type="text" id="nimi" placeholder="Esim. Lidl">
-        </div>
+    <div class="form-group">
 
-        <div class="form-group">
-            <label>Summa (€)</label>
-            <input type="number" id="summa" placeholder="0">
-        </div>
+        <label>Kategoria</label>
+
+        <select id="kategoria">
+
+            <option value="Palkka">💰 Palkka</option>
+            <option value="Ruoka">🛒 Ruoka</option>
+            <option value="Asuminen">🏠 Asuminen</option>
+            <option value="Auto">🚗 Auto</option>
+            <option value="Liikenne">🚌 Liikenne</option>
+            <option value="Vapaa-aika">🎮 Vapaa-aika</option>
+            <option value="Ravintola">🍔 Ravintola</option>
+            <option value="Terveys">🏥 Terveys</option>
+            <option value="Ostokset">🛍️ Ostokset</option>
+            <option value="Sijoitukset">📈 Sijoitukset</option>
+            <option value="Muu">📦 Muu</option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Päivämäärä</label>
+
+        <input
+            type="date"
+            id="paivamaara">
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Tyyppi</label>
+
+        <select id="tyyppi">
+
+            <option value="tulo">🟢 Tulo</option>
+            <option value="meno">🔴 Meno</option>
+
+        </select>
+
+    </div>
+
+</div>
 
     </div>
 
