@@ -2371,3 +2371,142 @@ body.dark{
     padding:30px;
 
 }
+
+/* ===========================
+   FINERO LOGO
+=========================== */
+
+.sidebar-logo{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+    padding-bottom:25px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.logo-top{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:14px;
+
+    margin-bottom:18px;
+
+}
+
+.euro-icon{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:50%;
+
+    border:3px solid #facc15;
+
+    color:#facc15;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    box-shadow:0 0 18px rgba(250,204,21,.35);
+
+}
+
+.logo-bars{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+}
+
+.bar{
+
+    width:18px;
+
+    border-radius:8px;
+
+}
+
+.green{
+
+    background:linear-gradient(180deg,#84cc16,#15803d);
+
+}
+
+.white{
+
+    background:#ffffff;
+
+}
+
+.short{
+
+    height:42px;
+
+}
+
+.medium{
+
+    height:72px;
+
+}
+
+.tall{
+
+    height:105px;
+
+}
+
+.tallest{
+
+    height:138px;
+
+}
+
+.sidebar-logo h2{
+
+    margin:0;
+
+    color:white;
+
+    font-size:32px;
+
+    letter-spacing:4px;
+
+    font-weight:800;
+
+}
+
+.sidebar-logo p{
+
+    margin-top:6px;
+
+    color:#a1a1aa;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+}
+
