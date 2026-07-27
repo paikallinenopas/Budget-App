@@ -121,3 +121,28 @@ function lisaaTapahtuma() {
     tyhjennaLomake();
 
 }
+
+function piirraTapahtumat(){
+
+    const lista = document.getElementById("tapahtumat");
+
+    lista.innerHTML = "";
+
+    tapahtumat.forEach(t=>{
+
+        const li = document.createElement("li");
+
+        li.innerHTML = `
+            <strong>${t.nimi}</strong><br>
+            ${t.kategoria} |
+            ${t.paivamaara}
+            <span style="float:right;">
+                ${t.tyyppi==="tulo" ? "+" : "-"}${t.summa} €
+            </span>
+        `;
+
+        lista.appendChild(li);
+
+    });
+
+}
