@@ -767,4 +767,3 @@ function paivitaKaaviot() {
 }
 
 paivitaKaaviot();
-
