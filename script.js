@@ -148,3 +148,49 @@ function piirraTapahtumat(){
 }
 
 piirraTapahtumat();
+
+// ===============================
+// PÄIVITÄ YHTEENVETO
+// ===============================
+
+function paivitaYhteenveto() {
+
+    let tulot = 0;
+    let menot = 0;
+
+    tapahtumat.forEach(t => {
+
+        if (t.tyyppi === "tulo") {
+
+            tulot += t.summa;
+
+        } else {
+
+            menot += t.summa;
+
+        }
+
+    });
+
+    const saldo = tulot - menot;
+
+    document.getElementById("saldo").textContent =
+        saldo.toLocaleString("fi-FI") + " €";
+
+    document.getElementById("tulot").textContent =
+        tulot.toLocaleString("fi-FI") + " €";
+
+    document.getElementById("menot").textContent =
+        menot.toLocaleString("fi-FI") + " €";
+
+    document.getElementById("saasto").textContent =
+        saldo.toLocaleString("fi-FI") + " €";
+
+    document.getElementById("maara").textContent =
+        tapahtumat.length;
+
+}
+
+piirraTapahtumat();
+
+paivitaYhteenveto();
