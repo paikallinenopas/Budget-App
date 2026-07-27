@@ -2442,6 +2442,22 @@ body.dark{
 
 .bar{
 
+    .bar{
+
+    display:block;
+
+    width:12px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:12px 12px 6px 6px;
+
+    transition:.3s ease;
+
+}
+
     position:relative;
 
     overflow:hidden;
