@@ -2309,3 +2309,67 @@ body.dark{
     }
 
 }
+
+/* Nykyinen CSS */
+
+...
+
+/* TÄSTÄ ALKAA VALIKON CSS */
+
+.sidebar{
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    width:240px;
+
+    height:100vh;
+
+    background:#111827;
+
+    padding:25px;
+
+}
+
+.sidebar h2{
+
+    color:white;
+
+    margin-bottom:30px;
+
+}
+
+.sidebar button{
+
+    width:100%;
+
+    margin-bottom:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#1f2937;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.sidebar button:hover{
+
+    background:#2563eb;
+
+}
+
+.content{
+
+    margin-left:270px;
+
+    padding:30px;
+
+}
