@@ -67,3 +67,57 @@ function lisaaMeno() {
 }
 
 paivitaSaldo();
+// ===============================
+// TAPAHTUMAT
+// ===============================
+
+let tapahtumat = JSON.parse(localStorage.getItem("tapahtumat")) || [];
+
+function lisaaTapahtuma() {
+
+    const nimi = document.getElementById("nimi").value.trim();
+
+    const summa = Number(document.getElementById("summa").value);
+
+    const kategoria = document.getElementById("kategoria").value;
+
+    const paivamaara = document.getElementById("paivamaara").value;
+
+    const tyyppi = document.getElementById("tyyppi").value;
+
+    if (nimi === "" || summa <= 0) {
+
+        alert("Täytä nimi ja summa.");
+
+        return;
+
+    }
+
+    const tapahtuma = {
+
+        id: Date.now(),
+
+        nimi,
+
+        summa,
+
+        kategoria,
+
+        paivamaara,
+
+        tyyppi
+
+    };
+
+    tapahtumat.push(tapahtuma);
+
+    localStorage.setItem(
+        "tapahtumat",
+        JSON.stringify(tapahtumat)
+    );
+
+    piirraTapahtumat();
+
+    tyhjennaLomake();
+
+}
