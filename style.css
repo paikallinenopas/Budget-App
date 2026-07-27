@@ -290,3 +290,163 @@ h1{
     transform:translateY(-3px);
 
 }
+
+/* ===========================================
+   BUTTONS
+=========================================== */
+
+button{
+
+    width:100%;
+
+    padding:18px;
+
+    margin-top:14px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#0f6dff,#0955d9);
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:0 12px 24px rgba(13,94,255,.25);
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 20px 35px rgba(13,94,255,.35);
+
+}
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+/* ===========================================
+   EVENTS
+=========================================== */
+
+h3{
+
+    margin-top:40px;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+}
+
+#tapahtumat{
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+#tapahtumat li{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#fff;
+
+    padding:18px;
+
+    margin-bottom:12px;
+
+    border-radius:16px;
+
+    border:1px solid #e6ebf2;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.04);
+
+    transition:.25s;
+
+}
+
+#tapahtumat li:hover{
+
+    transform:translateX(6px);
+
+}
+
+/* ===========================================
+   MINI CARDS
+=========================================== */
+
+.stats-row{
+
+    margin-top:26px;
+
+}
+
+.mini-card{
+
+    text-align:center;
+
+}
+
+.mini-card .label{
+
+    display:block;
+
+    color:#7b8797;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+.mini-card span:last-child{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+@media(max-width:850px){
+
+    body{
+
+        padding:20px;
+
+    }
+
+    h1{
+
+        font-size:30px;
+
+    }
+
+    .yhteenveto{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
