@@ -2442,8 +2442,6 @@ body.dark{
 
 .bar{
 
-    .bar{
-
     display:block;
 
     width:12px;
@@ -2563,4 +2561,5 @@ body.dark{
     font-size:10px;
 
     letter-spacing:2px;
+
 }
