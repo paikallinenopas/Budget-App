@@ -551,22 +551,24 @@ h3{
 
 .saldo-kortti::after{
 
-    content:"";
+    .saldo-card{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    margin-bottom:30px;
+}
 
-    position:absolute;
+.saldo-label{
+    color:#6b7280;
+    font-size:15px;
+}
 
-    width:180px;
-
-    height:180px;
-
-    left:-70px;
-
-    bottom:-70px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.05);
-
+.saldo-card h1{
+    margin-top:10px;
+    font-size:48px;
+    color:#111827;
+    
 }
 
 /* ======================================================
