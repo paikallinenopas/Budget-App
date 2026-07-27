@@ -37,7 +37,9 @@ function lisaaTulo() {
         paivitaSaldo();
 
         let uusi = document.createElement("li");
-        uusi.textContent = "+ " + summa + " €";
+        const aika = new Date().toLocaleString("fi-FI");
+
+        uusi.textContent = "+ " + summa + " €  •  " + aika;
         uusi.style.color = "green";
 
         tapahtumat.appendChild(uusi);
@@ -54,6 +56,9 @@ function lisaaMeno() {
 
         let uusi = document.createElement("li");
         uusi.textContent = "- " + summa + " €";
+        const aika = new Date().toLocaleString("fi-FI");
+
+        uusi.textContent = "- " + summa + " € • " + aika;
         uusi.style.color = "red";
 
         tapahtumat.appendChild(uusi);
