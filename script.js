@@ -408,7 +408,8 @@ function paivitaKaikki() {
 
     piirraTapahtumat();
 
-    paivitaYhteenveto();paivitaTavoite();
+    paivitaYhteenveto();
+    paivitaTavoite();
 
     tallenna();
 
