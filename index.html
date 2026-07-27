@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Budget App</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="container">
@@ -22,9 +30,25 @@
     <p>💰 Tulot: <span id="tulot">0 €</span></p>
     <p>💸 Menot: <span id="menot">0 €</span></p>
 </div>
+
+</div class="stats-row">
 <button onclick="lisaaTulo()">+ Lisää tulo</button>
 
 <button onclick="lisaaMeno()">− Lisää meno</button>
+
+<div 
+
+    <div class="mini-card">
+        <span class="label">Säästö</span>
+        <span id="saasto">0 €</span>
+    </div>
+
+    <div class="mini-card">
+        <span class="label">Tapahtumia</span>
+        <span id="maara">0</span>
+    </div>
+
+</div>
 
 <h3>Tapahtumat</h3>
 <ul id="tapahtumat"></ul>
