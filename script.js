@@ -540,6 +540,57 @@ function tallennaTavoite() {
         kuukausiTavoite
     );
 
-    paivitaTavoite();
+function paivitaTavoite() {
 
-}
+    const teksti = document.getElementById("tavoiteTeksti");
+    const progress = document.getElementById("progressBar");
+    const prosentti = document.getElementById("progressProsentti");
+
+    if (!teksti || !progress || !prosentti) return;
+
+    if (kuukausiTavoite <= 0) {
+
+        teksti.textContent = "Tavoitetta ei ole asetettu.";
+        progress.style.width = "0%";
+        prosentti.textContent = "0 %";
+
+        return;
+    }
+
+    const saldo = tapahtumat.reduce((summa, t) => {
+
+        return t.tyyppi === "tulo"
+            ? summa + t.summa
+            : summa - t.summa;
+
+    }, 0);
+
+    let edistyminen = (saldo / kuukausiTavoite) * 100;
+
+    if (edistyminen < 0) edistyminen = 0;
+    if (edistyminen > 100) edistyminen = 100;
+
+    teksti.textContent =
+        `Tavoite: ${kuukausiTavoite.toLocaleString("fi-FI")} €`;
+
+    progress.style.width = edistyminen + "%";
+
+    prosentti.textContent =
+        `${edistyminen.toFixed(0)} %`;
+
+    // Väri edistymisen mukaan
+    if (edistyminen < 40) {
+
+        progress.style.background = "#ef4444";
+
+    } else if (edistyminen < 80) {
+
+        progress.style.background = "#f59e0b";
+
+    } else {
+
+        progress.style.background = "#22c55e";
+
+    }
+
+ }
