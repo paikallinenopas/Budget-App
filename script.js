@@ -191,6 +191,82 @@ function paivitaYhteenveto() {
 
 }
 
-piirraTapahtumat();
+function piirraTapahtumat() {
+
+    const lista = document.getElementById("tapahtumat");
+
+    lista.innerHTML = "";
+
+    tapahtumat.forEach(t => {
+
+        const li = document.createElement("li");
+
+        li.innerHTML = `
+
+            <div>
+
+                <strong>${t.nimi}</strong><br>
+
+                <small>
+
+                    ${t.kategoria} • ${t.paivamaara}
+
+                </small>
+
+            </div>
+
+            <div style="display:flex;align-items:center;gap:15px;">
+
+                <strong style="color:${t.tyyppi==="tulo" ? "#16a34a" : "#dc2626"}">
+
+                    ${t.tyyppi==="tulo" ? "+" : "-"}${t.summa.toLocaleString("fi-FI")} €
+
+                </strong>
+
+                <button
+                    onclick="poistaTapahtuma(${t.id})"
+                    style="width:auto;padding:10px 14px;">
+
+                    🗑️
+
+                </button>
+
+            </div>
+
+        `;
+
+        lista.appendChild(li);
+
+    });
+
+}
 
 paivitaYhteenveto();
+
+const haku = document.getElementById("haku");
+
+if(haku){
+
+    haku.addEventListener("input",function(){
+
+        const teksti = this.value.toLowerCase();
+
+        const rivit = document.querySelectorAll("#tapahtumat li");
+
+        rivit.forEach(rivi=>{
+
+            if(rivi.innerText.toLowerCase().includes(teksti)){
+
+                rivi.style.display="flex";
+
+            }else{
+
+                rivi.style.display="none";
+
+            }
+
+        });
+
+    });
+
+}
