@@ -1,101 +1,107 @@
-let saldo = 0;
-let tulot = 0;
-let menot = 0;
-let tallennetut = JSON.parse(localStorage.getItem("budgetData"));
+// ========================================
+// Budget App v2.0
+// Osa 1/4
+// ========================================
 
-if (tallennetut) {
-    saldo = tallennetut.saldo;
-    tulot = tallennetut.tulot;
-    menot = tallennetut.menot;
-}
+// -------------------------------
+// DOM
+// -------------------------------
+
+const saldoElementti = document.getElementById("saldo");
 const tulotElementti = document.getElementById("tulot");
 const menotElementti = document.getElementById("menot");
-const saldoElementti = document.getElementById("saldo");
-const tapahtumat = document.getElementById("tapahtumat");
+const saastoElementti = document.getElementById("saasto");
+const maaraElementti = document.getElementById("maara");
 
-function tallennaTiedot() {
-    localStorage.setItem("budgetData", JSON.stringify({
-        saldo: saldo,
-        tulot: tulot,
-        menot: menot
-    }));
+const lista = document.getElementById("tapahtumat");
+
+const nimiInput = document.getElementById("nimi");
+const summaInput = document.getElementById("summa");
+const kategoriaInput = document.getElementById("kategoria");
+const paivamaaraInput = document.getElementById("paivamaara");
+const tyyppiInput = document.getElementById("tyyppi");
+
+const hakuInput = document.getElementById("haku");
+
+// -------------------------------
+// Data
+// -------------------------------
+
+let tapahtumat =
+    JSON.parse(localStorage.getItem("tapahtumat")) || [];
+
+let muokattavaId = null;
+
+// -------------------------------
+// Tallennus
+// -------------------------------
+
+function tallenna() {
+
+    localStorage.setItem(
+
+        "tapahtumat",
+
+        JSON.stringify(tapahtumat)
+
+    );
+
 }
 
-function paivitaSaldo() {
-    saldoElementti.textContent = saldo + " €";
-    tulotElementti.textContent = tulot + " €";
-    menotElementti.textContent = menot + " €";
+// -------------------------------
+// Tyhjennä lomake
+// -------------------------------
 
-    tallennaTiedot();
- }   
+function tyhjennaLomake(){
 
-function lisaaTulo() {
-    let summa = Number(prompt("Anna tulon määrä (€):"));
+    nimiInput.value = "";
 
-    if (!isNaN(summa) && summa > 0) {
-        tulot += summa;
-        saldo +=summa;
-        paivitaSaldo();
+    summaInput.value = "";
 
-        let uusi = document.createElement("li");
-        const aika = new Date().toLocaleString("fi-FI");
+    paivamaaraInput.value = "";
 
-        uusi.textContent = "+ " + summa + " €  •  " + aika;
-        uusi.style.color = "green";
+    kategoriaInput.selectedIndex = 0;
 
-        tapahtumat.appendChild(uusi);
-    }
+    tyyppiInput.selectedIndex = 0;
+
 }
 
-function lisaaMeno() {
-    let summa = Number(prompt("Anna menon määrä (€):"));
+// -------------------------------
+// Lisää tapahtuma
+// -------------------------------
 
-    if (!isNaN(summa) && summa > 0) {
-        menot += summa;
-        saldo -= summa;
-        paivitaSaldo();
+function lisaaTapahtuma(){
 
-        let uusi = document.createElement("li");
-        uusi.textContent = "- " + summa + " €";
-        const aika = new Date().toLocaleString("fi-FI");
+    const nimi = nimiInput.value.trim();
 
-        uusi.textContent = "- " + summa + " € • " + aika;
-        uusi.style.color = "red";
+    const summa = Number(summaInput.value);
 
-        tapahtumat.appendChild(uusi);
-    }
-}
+    const kategoria = kategoriaInput.value;
 
-paivitaSaldo();
-// ===============================
-// TAPAHTUMAT
-// ===============================
+    const paivamaara = paivamaaraInput.value;
 
-let tapahtumat = JSON.parse(localStorage.getItem("tapahtumat")) || [];
+    const tyyppi = tyyppiInput.value;
 
-function lisaaTapahtuma() {
+    if(nimi===""){
 
-    const nimi = document.getElementById("nimi").value.trim();
-
-    const summa = Number(document.getElementById("summa").value);
-
-    const kategoria = document.getElementById("kategoria").value;
-
-    const paivamaara = document.getElementById("paivamaara").value;
-
-    const tyyppi = document.getElementById("tyyppi").value;
-
-    if (nimi === "" || summa <= 0) {
-
-        alert("Täytä nimi ja summa.");
+        alert("Anna tapahtuman nimi.");
 
         return;
 
     }
 
-    const tapahtuma = {
+    if(summa<=0){
 
-        id: Date.now(),
+        alert("Anna kelvollinen summa.");
+
+        return;
+
+    }
+
+    const tapahtuma={
+
+        id:
+            muokattavaId ?? Date.now(),
 
         nimi,
 
@@ -109,97 +115,55 @@ function lisaaTapahtuma() {
 
     };
 
-    tapahtumat.push(tapahtuma);
+    if(muokattavaId){
 
-    localStorage.setItem(
-        "tapahtumat",
-        JSON.stringify(tapahtumat)
-    );
+        const indeksi =
+            tapahtumat.findIndex(
 
-    piirraTapahtumat();
+                t=>t.id===muokattavaId
+
+            );
+
+        tapahtumat[indeksi]=tapahtuma;
+
+        muokattavaId=null;
+
+    }else{
+
+        tapahtumat.push(tapahtuma);
+
+    }
+
+    tallenna();
 
     tyhjennaLomake();
 
-}
+    piirraTapahtumat();
 
-function piirraTapahtumat(){
-
-    const lista = document.getElementById("tapahtumat");
-
-    lista.innerHTML = "";
-
-    tapahtumat.forEach(t=>{
-
-        const li = document.createElement("li");
-
-        li.innerHTML = `
-            <strong>${t.nimi}</strong><br>
-            ${t.kategoria} |
-            ${t.paivamaara}
-            <span style="float:right;">
-                ${t.tyyppi==="tulo" ? "+" : "-"}${t.summa} €
-            </span>
-        `;
-
-        lista.appendChild(li);
-
-    });
+    paivitaYhteenveto();
 
 }
 
-piirraTapahtumat();
+// ========================================
+// Budget App v2.0
+// Osa 2/4
+// ========================================
 
-// ===============================
-// PÄIVITÄ YHTEENVETO
-// ===============================
-
-function paivitaYhteenveto() {
-
-    let tulot = 0;
-    let menot = 0;
-
-    tapahtumat.forEach(t => {
-
-        if (t.tyyppi === "tulo") {
-
-            tulot += t.summa;
-
-        } else {
-
-            menot += t.summa;
-
-        }
-
-    });
-
-    const saldo = tulot - menot;
-
-    document.getElementById("saldo").textContent =
-        saldo.toLocaleString("fi-FI") + " €";
-
-    document.getElementById("tulot").textContent =
-        tulot.toLocaleString("fi-FI") + " €";
-
-    document.getElementById("menot").textContent =
-        menot.toLocaleString("fi-FI") + " €";
-
-    document.getElementById("saasto").textContent =
-        saldo.toLocaleString("fi-FI") + " €";
-
-    document.getElementById("maara").textContent =
-        tapahtumat.length;
-
-}
+// -------------------------------
+// Piirrä tapahtumat
+// -------------------------------
 
 function piirraTapahtumat() {
 
-    const lista = document.getElementById("tapahtumat");
-
     lista.innerHTML = "";
 
     tapahtumat.forEach(t => {
 
         const li = document.createElement("li");
+
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
 
         li.innerHTML = `
 
@@ -215,17 +179,21 @@ function piirraTapahtumat() {
 
             </div>
 
-            <div style="display:flex;align-items:center;gap:15px;">
+            <div style="display:flex;align-items:center;gap:10px;">
 
-                <strong style="color:${t.tyyppi==="tulo" ? "#16a34a" : "#dc2626"}">
+                <strong style="color:${t.tyyppi === "tulo" ? "#16a34a" : "#dc2626"}">
 
-                    ${t.tyyppi==="tulo" ? "+" : "-"}${t.summa.toLocaleString("fi-FI")} €
+                    ${t.tyyppi === "tulo" ? "+" : "-"}${t.summa.toLocaleString("fi-FI")} €
 
                 </strong>
 
-                <button
-                    onclick="poistaTapahtuma(${t.id})"
-                    style="width:auto;padding:10px 14px;">
+                <button onclick="muokkaaTapahtuma(${t.id})">
+
+                    ✏️
+
+                </button>
+
+                <button onclick="poistaTapahtuma(${t.id})">
 
                     🗑️
 
@@ -241,32 +209,304 @@ function piirraTapahtumat() {
 
 }
 
-paivitaYhteenveto();
+// -------------------------------
+// Poista tapahtuma
+// -------------------------------
 
-const haku = document.getElementById("haku");
+function poistaTapahtuma(id) {
 
-if(haku){
+    if (!confirm("Poistetaanko tapahtuma?")) {
 
-    haku.addEventListener("input",function(){
+        return;
 
-        const teksti = this.value.toLowerCase();
+    }
 
-        const rivit = document.querySelectorAll("#tapahtumat li");
+    tapahtumat = tapahtumat.filter(
 
-        rivit.forEach(rivi=>{
+        t => t.id !== id
 
-            if(rivi.innerText.toLowerCase().includes(teksti)){
+    );
 
-                rivi.style.display="flex";
+    tallenna();
 
-            }else{
+    piirraTapahtumat();
 
-                rivi.style.display="none";
+    paivitaYhteenveto();
 
-            }
+}
 
-        });
+// -------------------------------
+// Muokkaa tapahtumaa
+// -------------------------------
+
+function muokkaaTapahtuma(id) {
+
+    const t = tapahtumat.find(
+
+        x => x.id === id
+
+    );
+
+    if (!t) return;
+
+    muokattavaId = id;
+
+    nimiInput.value = t.nimi;
+
+    summaInput.value = t.summa;
+
+    kategoriaInput.value = t.kategoria;
+
+    paivamaaraInput.value = t.paivamaara;
+
+    tyyppiInput.value = t.tyyppi;
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
 
     });
 
 }
+
+// ========================================
+// Budget App v2.0
+// Osa 3/4
+// ========================================
+
+// -------------------------------
+// Päivitä yhteenveto
+// -------------------------------
+
+function paivitaYhteenveto() {
+
+    let tulot = 0;
+    let menot = 0;
+
+    tapahtumat.forEach(t => {
+
+        if (t.tyyppi === "tulo") {
+            tulot += t.summa;
+        } else {
+            menot += t.summa;
+        }
+
+    });
+
+    const saldo = tulot - menot;
+
+    saldoElementti.textContent =
+        saldo.toLocaleString("fi-FI") + " €";
+
+    tulotElementti.textContent =
+        tulot.toLocaleString("fi-FI") + " €";
+
+    menotElementti.textContent =
+        menot.toLocaleString("fi-FI") + " €";
+
+    if (saastoElementti) {
+
+        saastoElementti.textContent =
+            saldo.toLocaleString("fi-FI") + " €";
+
+    }
+
+    if (maaraElementti) {
+
+        maaraElementti.textContent =
+            tapahtumat.length;
+
+    }
+
+}
+
+// -------------------------------
+// Hakutoiminto
+// -------------------------------
+
+if (hakuInput) {
+
+    hakuInput.addEventListener("input", function () {
+
+        const haku = this.value.toLowerCase();
+
+        document.querySelectorAll("#tapahtumat li")
+            .forEach(rivi => {
+
+                if (rivi.innerText.toLowerCase().includes(haku)) {
+
+                    rivi.style.display = "flex";
+
+                } else {
+
+                    rivi.style.display = "none";
+
+                }
+
+            });
+
+    });
+
+}
+
+// -------------------------------
+// Enter lisää tapahtuman
+// -------------------------------
+
+summaInput.addEventListener("keypress", function (e) {
+
+    if (e.key === "Enter") {
+
+        lisaaTapahtuma();
+
+    }
+
+});
+
+// -------------------------------
+// Alustus
+// -------------------------------
+
+piirraTapahtumat();
+
+paivitaYhteenveto();
+
+// ========================================
+// Budget App v2.0
+// Osa 4/4
+// ========================================
+
+// -------------------------------
+// Lajittele tapahtumat päivämäärän mukaan
+// -------------------------------
+
+function lajitteleTapahtumat() {
+
+    tapahtumat.sort((a, b) => {
+
+        if (!a.paivamaara || !b.paivamaara) {
+
+            return b.id - a.id;
+
+        }
+
+        return new Date(b.paivamaara) - new Date(a.paivamaara);
+
+    });
+
+}
+
+// -------------------------------
+// Päivitä kaikki näkymät
+// -------------------------------
+
+function paivitaKaikki() {
+
+    lajitteleTapahtumat();
+
+    piirraTapahtumat();
+
+    paivitaYhteenveto();
+
+    tallenna();
+
+}
+
+// -------------------------------
+// Vie tiedot JSON-tiedostoksi
+// -------------------------------
+
+function vieJSON() {
+
+    const data = JSON.stringify(tapahtumat, null, 2);
+
+    const blob = new Blob([data], {
+        type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const linkki = document.createElement("a");
+
+    linkki.href = url;
+    linkki.download = "budget-data.json";
+
+    linkki.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+// -------------------------------
+// Tyhjennä kaikki tiedot
+// -------------------------------
+
+function tyhjennaKaikki() {
+
+    if (!confirm("Haluatko varmasti poistaa kaikki tapahtumat?")) {
+
+        return;
+
+    }
+
+    tapahtumat = [];
+
+    muokattavaId = null;
+
+    tallenna();
+
+    paivitaKaikki();
+
+}
+
+// -------------------------------
+// Näytä tämän kuukauden saldo
+// -------------------------------
+
+function tamanKuukaudenSaldo() {
+
+    const nyt = new Date();
+
+    const vuosi = nyt.getFullYear();
+    const kuukausi = nyt.getMonth();
+
+    let saldo = 0;
+
+    tapahtumat.forEach(t => {
+
+        if (!t.paivamaara) return;
+
+        const p = new Date(t.paivamaara);
+
+        if (
+            p.getFullYear() === vuosi &&
+            p.getMonth() === kuukausi
+        ) {
+
+            if (t.tyyppi === "tulo") {
+
+                saldo += t.summa;
+
+            } else {
+
+                saldo -= t.summa;
+
+            }
+
+        }
+
+    });
+
+    return saldo;
+
+}
+
+// -------------------------------
+// Käynnistys
+// -------------------------------
+
+paivitaKaikki();
+
+console.log("Budget App käynnistetty onnistuneesti.");
