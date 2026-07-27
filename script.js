@@ -28,6 +28,8 @@ function paivitaSaldo() {
 
     tallennaTiedot();
 
+ }   
+
 function lisaaTulo() {
     let summa = Number(prompt("Anna tulon määrä (€):"));
 
