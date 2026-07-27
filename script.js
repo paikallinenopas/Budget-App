@@ -233,6 +233,8 @@ function poistaTapahtuma(id) {
 
     paivitaYhteenveto();
 
+    paivitaKaaviot();
+
 }
 
 // -------------------------------
@@ -670,3 +672,99 @@ function paivitaKaaviot() {
         }
 
     );
+
+    // -------------------------
+    // MENOT KATEGORIOITTAIN
+    // -------------------------
+
+    const kategoriat = {};
+
+    tapahtumat.forEach(t => {
+
+        if (t.tyyppi === "meno") {
+
+            if (!kategoriat[t.kategoria]) {
+
+                kategoriat[t.kategoria] = 0;
+
+            }
+
+            kategoriat[t.kategoria] += t.summa;
+
+        }
+
+    });
+
+    kategoriaChart = new Chart(
+
+        document.getElementById("kategoriaChart"),
+
+        {
+
+            type: "pie",
+
+            data: {
+
+                labels: Object.keys(kategoriat),
+
+                datasets: [{
+
+                    data: Object.values(kategoriat)
+
+                }]
+
+            }
+
+        }
+
+    );
+    
+    // -------------------------
+    // TULOT VS MENOT
+    // -------------------------
+
+    let tulot = 0;
+    let menot = 0;
+
+    tapahtumat.forEach(t => {
+
+        if (t.tyyppi === "tulo") {
+
+            tulot += t.summa;
+
+        } else {
+
+            menot += t.summa;
+
+        }
+
+    });
+
+    tulotMenotChart = new Chart(
+
+        document.getElementById("tulotMenotChart"),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: ["Tulot", "Menot"],
+
+                datasets: [{
+
+                    data: [tulot, menot]
+
+                }]
+
+            }
+
+        }
+
+    );
+
+}
+
+paivitaKaaviot();
+
