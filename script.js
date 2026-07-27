@@ -32,8 +32,8 @@ function lisaaTulo() {
     let summa = Number(prompt("Anna tulon määrä (€):"));
 
     if (!isNaN(summa) && summa > 0) {
-        tulot+= summa;
-        saldo+=summa;
+        tulot += summa;
+        saldo +=summa;
         paivitaSaldo();
 
         let uusi = document.createElement("li");
