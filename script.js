@@ -408,7 +408,7 @@ function paivitaKaikki() {
 
     piirraTapahtumat();
 
-    paivitaYhteenveto();
+    paivitaYhteenveto();paivitaTavoite();
 
     tallenna();
 
@@ -510,3 +510,35 @@ function tamanKuukaudenSaldo() {
 paivitaKaikki();
 
 console.log("Budget App käynnistetty onnistuneesti.");
+
+// ===============================
+// KUUKAUSITAVOITTEET
+// ===============================
+
+let kuukausiTavoite =
+    Number(localStorage.getItem("kuukausiTavoite")) || 0;
+
+function tallennaTavoite() {
+
+    const arvo = Number(
+        document.getElementById("tavoite").value
+    );
+
+    if (arvo <= 0) {
+
+        alert("Anna kelvollinen tavoite.");
+
+        return;
+
+    }
+
+    kuukausiTavoite = arvo;
+
+    localStorage.setItem(
+        "kuukausiTavoite",
+        kuukausiTavoite
+    );
+
+    paivitaTavoite();
+
+}

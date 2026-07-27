@@ -1,207 +1,498 @@
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Budget App</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
+
 </head>
 
 <body>
-    <div class="sidebar">
 
-    <h2>💰 Budget App</h2>
+<div class="sidebar">
 
-    <button onclick="naytaSivu('etusivu')">🏠 Etusivu</button>
+    <h2>💰 Budget</h2>
 
-    <button onclick="naytaSivu('tapahtumatSivu')">📝 Tapahtumat</button>
+    <button onclick="naytaSivu('etusivu')">
+        🏠 Etusivu
+    </button>
 
-    <button onclick="naytaSivu('tavoitteet')">🎯 Tavoitteet</button>
+    <button onclick="naytaSivu('tapahtumatSivu')">
+        📝 Tapahtumat
+    </button>
 
-    <button onclick="naytaSivu('tilastot')">📊 Tilastot</button>
+    <button onclick="naytaSivu('tavoitteet')">
+        🎯 Tavoitteet
+    </button>
 
-    <button onclick="naytaSivu('budjetit')">💳 Budjetit</button>
+    <button onclick="naytaSivu('tilastot')">
+        📊 Tilastot
+    </button>
 
-    <button onclick="naytaSivu('sijoitukset')">📈 Sijoitukset</button>
+    <button onclick="naytaSivu('budjetit')">
+        💳 Budjetit
+    </button>
 
-    <button onclick="naytaSivu('asetukset')">⚙️ Asetukset</button>
+    <button onclick="naytaSivu('sijoitukset')">
+        📈 Sijoitukset
+    </button>
 
-    <div class="content">
-
-    <section id="etusivu">
-
-        <!-- Nykyinen saldo, kortit jne -->
-
-    </section>
-
-    <section id="tapahtumatSivu" style="display:none;">
-
-        <!-- Tapahtumalista -->
-
-    </section>
-
-    <section id="tavoitteet" style="display:none;">
-
-        <h2>🎯 Kuukausitavoitteet</h2>
-
-    </section>
-
-    <section id="tilastot" style="display:none;">
-
-        <h2>📊 Tilastot</h2>
-
-    </section>
-
-    <section id="budjetit" style="display:none;">
-
-        <h2>💳 Budjetit</h2>
-
-    </section>
-
-    <section id="sijoitukset" style="display:none;">
-
-        <h2>📈 Sijoitukset</h2>
-
-    </section>
-
-    <section id="asetukset" style="display:none;">
-
-        <h2>⚙️ Asetukset</h2>
-
-    </section>
-    </div>
-</div>
-
-    <div class="container">
-
-<h1>💰 Budget App</h1>
-<p class="subtitle">Hallitse talouttasi helposti ja tyylikkäästi.</p>
-
-<div class="saldo-kortti">
-    <div class="saldo-otsikko">Nykyinen saldo</div>
-    <div class="saldo-arvo">
-        <span id="saldo">0 €</span>
-
-<div class="yhteenveto">
-    <p>💰 Tulot: <span id="tulot">0 €</span></p>
-    <p>💸 Menot: <span id="menot">0 €</span></p>
-</div>
-
-</div class="stats-row">
-<div class="form-card">
-
-    <div class="form-row">
-
-    <div class="form-group">
-
-        <label>Kategoria</label>
-
-        <select id="kategoria">
-
-            <option value="Palkka">💰 Palkka</option>
-            <option value="Ruoka">🛒 Ruoka</option>
-            <option value="Asuminen">🏠 Asuminen</option>
-            <option value="Auto">🚗 Auto</option>
-            <option value="Liikenne">🚌 Liikenne</option>
-            <option value="Vapaa-aika">🎮 Vapaa-aika</option>
-            <option value="Ravintola">🍔 Ravintola</option>
-            <option value="Terveys">🏥 Terveys</option>
-            <option value="Ostokset">🛍️ Ostokset</option>
-            <option value="Sijoitukset">📈 Sijoitukset</option>
-            <option value="Muu">📦 Muu</option>
-
-        </select>
-
-    </div>
-
-    <div class="form-group">
-
-        <label>Päivämäärä</label>
-
-        <input
-            type="date"
-            id="paivamaara">
-
-    </div>
-
-    <div class="form-group">
-
-        <label>Tyyppi</label>
-
-        <select id="tyyppi">
-
-            <option value="tulo">🟢 Tulo</option>
-            <option value="meno">🔴 Meno</option>
-
-        </select>
-
-    </div>
-
-</div>
-
-    </div>
-
-    <div class="form-row">
-
-        <div class="form-group">
-            <label>Kategoria</label>
-
-            <select id="kategoria">
-                <option>Ruoka</option>
-                <option>Palkka</option>
-                <option>Asuminen</option>
-                <option>Auto</option>
-                <option>Vapaa-aika</option>
-                <option>Sijoitukset</option>
-                <option>Muu</option>
-            </select>
-
-        </div>
-
-        <div class="form-group">
-            <label>Tyyppi</label>
-
-            <select id="tyyppi">
-                <option value="tulo">Tulo</option>
-                <option value="meno">Meno</option>
-            </select>
-
-        </div>
-
-    </div>
-
-    <button onclick="lisaaTapahtuma()">
-        Lisää tapahtuma
+    <button onclick="naytaSivu('asetukset')">
+        ⚙️ Asetukset
     </button>
 
 </div>
 
-<div 
+<div class="content">
 
-    <div class="mini-card">
-        <span class="label">Säästö</span>
-        <span id="saasto">0 €</span>
+<section id="etusivu">
+
+<div class="container">
+
+<h1>💰 Budget App</h1>
+
+<p class="subtitle">
+
+Hallitse talouttasi helposti.
+
+</p>
+
+<div class="saldo-kortti">
+
+    <div class="saldo-otsikko">
+
+        Nykyinen saldo
+
     </div>
 
-    <div class="mini-card">
-        <span class="label">Tapahtumia</span>
-        <span id="maara">0</span>
+    <div class="saldo-arvo">
+
+        <span id="saldo">0 €</span>
+
     </div>
 
 </div>
 
-<h3>Tapahtumat</h3>
+<div class="yhteenveto">
+
+    <div class="kortti">
+
+        <h3>💰 Tulot</h3>
+
+        <p id="tulot">0 €</p>
+
+    </div>
+
+    <div class="kortti">
+
+        <h3>💸 Menot</h3>
+
+        <p id="menot">0 €</p>
+
+    </div>
+
+</div>
+
+<div class="stats-row">
+
+    <div class="mini-card">
+
+        <span class="label">
+
+            Säästö
+
+        </span>
+
+        <span id="saasto">
+
+            0 €
+
+        </span>
+
+    </div>
+
+    <div class="mini-card">
+
+        <span class="label">
+
+            Tapahtumia
+
+        </span>
+
+        <span id="maara">
+
+            0
+
+        </span>
+
+    </div>
+
+</div>
+
+<div class="form-card">
+
+<h2>
+
+Lisää tapahtuma
+
+</h2>
+
+<div class="form-group">
+
+<label>
+
+Nimi
+
+</label>
+
+<input
+type="text"
+id="nimi"
+placeholder="Esim. Palkka">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Summa (€)
+
+</label>
+
+<input
+type="number"
+id="summa"
+placeholder="0">
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>
+
+Kategoria
+
+</label>
+
+<select id="kategoria">
+
+<option value="Palkka">💰 Palkka</option>
+<option value="Ruoka">🛒 Ruoka</option>
+<option value="Asuminen">🏠 Asuminen</option>
+<option value="Auto">🚗 Auto</option>
+<option value="Liikenne">🚌 Liikenne</option>
+<option value="Vapaa-aika">🎮 Vapaa-aika</option>
+<option value="Ravintola">🍔 Ravintola</option>
+<option value="Terveys">🏥 Terveys</option>
+<option value="Ostokset">🛍️ Ostokset</option>
+<option value="Sijoitukset">📈 Sijoitukset</option>
+<option value="Muu">📦 Muu</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Päivämäärä
+
+</label>
+
+<input
+type="date"
+id="paivamaara">
+
+</div>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>
+
+Tyyppi
+
+</label>
+
+<select id="tyyppi">
+
+<option value="tulo">🟢 Tulo</option>
+
+<option value="meno">🔴 Meno</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button onclick="lisaaTapahtuma()">
+
+➕ Lisää tapahtuma
+
+</button>
+
+</div>
+
+<h2>📝 Tapahtumat</h2>
+
+<input
+    type="text"
+    id="haku"
+    placeholder="🔍 Hae tapahtumia...">
+
 <ul id="tapahtumat"></ul>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- KUUKAUSITAVOITTEET -->
+<!-- ========================= -->
+
+<section id="tavoitteet" style="display:none;">
+
+<div class="container">
+
+<h1>🎯 Kuukausitavoitteet</h1>
+
+<div class="goal-card">
+
+    <h2>Säästötavoite</h2>
+
+    <input
+        type="number"
+        id="tavoite"
+        placeholder="Esim. 500">
+
+    <button onclick="tallennaTavoite()">
+
+        💾 Tallenna tavoite
+
+    </button>
+
+    <h3 id="tavoiteTeksti">
+
+        Tavoitetta ei ole asetettu.
+
+    </h3>
+
+    <div class="progress">
+
+        <div
+            id="progressBar"
+            class="progress-fill">
+
+        </div>
+
+    </div>
+
+    <p id="progressProsentti">
+
+        0 %
+
+    </p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- TILASTOT -->
+<!-- ========================= -->
+
+<section id="tilastot" style="display:none;">
+
+<div class="container">
+
+<h1>📊 Tilastot</h1>
+
+<div class="chart-card">
+
+<h2>
+
+Tulot vs Menot
+
+</h2>
+
+<canvas id="tulotMenotChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<h2>
+
+Menot kategorioittain
+
+</h2>
+
+<canvas id="kategoriaChart"></canvas>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- BUDJETIT -->
+<!-- ========================= -->
+
+<section id="budjetit" style="display:none;">
+
+<div class="container">
+
+<h1>💳 Budjetit</h1>
+
+<p>
+
+Täällä voit luoda kuukausibudjetteja eri kategorioille.
+
+</p>
+
+<div class="budget-card">
+
+<h2>Ruokabudjetti</h2>
+
+<p>0 € / 400 €</p>
+
+<div class="progress">
+
+<div class="progress-fill" style="width:0%;"></div>
+
+</div>
+
+</div>
+
+<div class="budget-card">
+
+<h2>Auto</h2>
+
+<p>0 € / 250 €</p>
+
+<div class="progress">
+
+<div class="progress-fill" style="width:0%;"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- SIJOITUKSET -->
+<!-- ========================= -->
+
+<section id="sijoitukset" style="display:none;">
+
+<div class="container">
+
+<h1>📈 Sijoitukset</h1>
+
+<div class="investment-card">
+
+<h2>Salkun arvo</h2>
+
+<h1 id="portfolioValue">
+
+0 €
+
+</h1>
+
+</div>
+
+<div class="investment-card">
+
+<h2>Kuukausisijoitus</h2>
+
+<input
+type="number"
+id="monthlyInvestment"
+placeholder="Esim. 900">
+
+<button>
+
+Tallenna
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- ASETUKSET -->
+<!-- ========================= -->
+
+<section id="asetukset" style="display:none;">
+
+<div class="container">
+
+<h1>⚙️ Asetukset</h1>
+
+<button>
+
+🌙 Tumma tila
+
+</button>
+
+<button>
+
+📤 Vie tiedot
+
+</button>
+
+<button>
+
+🗑️ Tyhjennä kaikki tiedot
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="script.js"></script>
 
-</div>
 </body>
 </html>
