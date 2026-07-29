@@ -11,7 +11,7 @@ const supabase = window.supabase.createClient(
     SUPABASE_ANON_KEY
 );
 // Tämän jälkeen alkaa muu koodisi
-// ...
+
 let tapahtumat = JSON.parse(localStorage.getItem("tapahtumat")) || [];
 
 let incomeChart;
