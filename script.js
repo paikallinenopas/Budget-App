@@ -3,11 +3,11 @@
 FINERO 3.0
 =================================
 */
-
+console.log("script.js ladattu");
 const SUPABASE_URL = "https://aaalfykbovslexndompa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_G7z8XDhx1mZpeOSGqk9ONw_lWHxJ0y6";
 
-const supabase = window.supabase.createClient(
+const sb = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
@@ -793,7 +793,7 @@ async function register() {
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    const { error } = await supabase.auth.signUp({
+    const { error } = await sb.auth.signUp({
         email,
         password
     });
@@ -811,7 +811,7 @@ async function login() {
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await sb.auth.signInWithPassword({
         email,
         password
     });
@@ -828,7 +828,7 @@ async function login() {
 registerButton.addEventListener("click", register);
 loginButton.addEventListener("click", login);
 
-supabase.auth.getSession().then(({ data }) => {
+sb.auth.getSession().then(({ data }) => {
 
     if (data.session) {
 
