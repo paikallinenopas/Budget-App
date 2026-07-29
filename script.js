@@ -14,7 +14,7 @@ const sb = window.supabase.createClient(
 //...
 // Tämän jälkeen alkaa muu koodisi
 
-let tapahtumat = JSON.parse(localStorage.getItem("tapahtumat")) || [];
+let tapahtumat = [];
 
 let incomeChart;
 let expenseChart;
