@@ -7,7 +7,7 @@ console.log("script.js ladattu");
 const SUPABASE_URL = "https://aaalfykbovslexndompa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_G7z8XDhx1mZpeOSGqk9ONw_lWHxJ0y6";
 
-const sb = window.supabase.createClient(
+const sb = window.supabase.createClient(...)
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
