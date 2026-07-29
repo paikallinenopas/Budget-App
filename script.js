@@ -4,11 +4,13 @@ FINERO 3.0
 =================================
 */
 console.log("script.js ladattu");
-const SUPABASE_URL = "https://aaalfykbovslexndompa.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_G7z8XDhx1mZpeOSGqk9ONw_lWHxJ0y6";
 
 const sb = window.supabase.createClient(
-    async function lataaTapahtumat() {
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+async function lataaTapahtumat() {
     const {
         data,
         error
@@ -24,11 +26,8 @@ const sb = window.supabase.createClient(
 
     tapahtumat = data || [];
     paivitaKaikki();
-    }
 }
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+
 async function tallennaTapahtumat() {
     const user = (await sb.auth.getUser()).data.user;
 
