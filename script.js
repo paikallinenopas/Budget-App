@@ -25,6 +25,7 @@ async function lataaTapahtumat() {
     }
 
     tapahtumat = data || [];
+    
     paivitaKaikki();
 }
 
