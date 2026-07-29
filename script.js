@@ -8,9 +8,57 @@ const SUPABASE_URL = "https://aaalfykbovslexndompa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_G7z8XDhx1mZpeOSGqk9ONw_lWHxJ0y6";
 
 const sb = window.supabase.createClient(
+    async function lataaTapahtumat() {
+    const {
+        data,
+        error
+    } = await sb
+        .from("Transactions")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    tapahtumat = data || [];
+    paivitaKaikki();
+}
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
+async function tallennaTapahtumat() {
+    const user = (await sb.auth.getUser()).data.user;
+
+    if (!user) return;
+
+    // Poista vanhat tapahtumat
+    await sb
+        .from("Transactions")
+        .delete()
+        .eq("user_id", user.id);
+
+    // Lisää uudet tapahtumat
+    const data = tapahtumat.map(t => ({
+        user_id: user.id,
+        description: t.kuvaus,
+        amount: t.summa,
+        category: t.kategoria,
+        type: t.tyyppi,
+        created_at: new Date().toISOString()
+    }));
+
+    if (data.length > 0) {
+        const { error } = await sb
+            .from("Transactions")
+            .insert(data);
+
+        if (error) {
+            console.error(error);
+        }
+    }
+}
 //...
 // Tämän jälkeen alkaa muu koodisi
 
@@ -47,11 +95,7 @@ function naytaSivu(sivuId){
 ====================================== */
 
 function tallenna(){
-
-    localStorage.setItem(
-        "tapahtumat",
-        JSON.stringify(tapahtumat)
-    );
+    tallennaTapahtumat();
 
 }
 
@@ -820,6 +864,8 @@ async function login() {
         alert(error.message);
         return;
     }
+
+    await lataaTapahtumat();
 
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("appContent").style.display = "block";
