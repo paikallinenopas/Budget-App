@@ -1,652 +1,972 @@
 <!DOCTYPE html>
 <html lang="fi">
-
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>FINERO</title>
 
-    <title>Budget App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
-<div class="sidebar">
+<div class="app">
 
-    <div class="sidebar-logo">
+    <!-- SIDEBAR -->
 
-    <div class="logo-top">
+    <aside class="sidebar">
 
-        <div class="euro-icon">
-            €
-        </div>
+        <div class="logo">
 
-        <div class="logo-bars">
+            <div class="logo-top">
 
-            <span class="bar green short"></span>
+                <div class="euro-icon">
+                    €
+                </div>
 
-            <span class="bar white medium"></span>
+                <div class="logo-bars">
 
-            <span class="bar green tall"></span>
+                    <span class="bar green short"></span>
+                    <span class="bar white medium"></span>
+                    <span class="bar green tall"></span>
+                    <span class="bar green tallest"></span>
 
-            <span class="bar green tallest"></span>
+                </div>
 
-        </div>
+            </div>
 
-    </div>
+            <h2>FINERO</h2>
 
-    <h2>FINERO</h2>
-
-    <p>Taloutesi hallinnassa</p>
-
-</div>
-
-    <h2>💰 Budget</h2>
-
-    <button onclick="naytaSivu('etusivu')">
-        🏠 Etusivu
-    </button>
-
-    <button onclick="naytaSivu('tapahtumatSivu')">
-        📝 Tapahtumat
-    </button>
-
-    <button onclick="naytaSivu('tavoitteet')">
-        🎯 Tavoitteet
-    </button>
-
-    <button onclick="naytaSivu('tilastot')">
-        📊 Tilastot
-    </button>
-
-    <button onclick="naytaSivu('budjetit')">
-        💳 Budjetit
-    </button>
-
-    <button onclick="naytaSivu('sijoitukset')">
-        📈 Sijoitukset
-    </button>
-
-    <button onclick="naytaSivu('asetukset')">
-        ⚙️ Asetukset
-    </button>
-
-</div>
-
-<div class="content">
-
-    <section id="etusivu" class="page active">
-
-        <div class="page-header">
-
-            <button class="menu-btn">☰</button>
-
-            <h1>🏠 Etusivu</h1>
+            <p>Taloutesi hallinnassa</p>
 
         </div>
 
-        <!-- Nykyinen etusivun sisältö tulee tähän -->
+        <nav>
 
-    </section>
+            <button onclick="naytaSivu('etusivu')">
+                🏠 Etusivu
+            </button>
 
-    <section id="tapahtumatSivu" class="page">
+            <button onclick="naytaSivu('tapahtumat')">
+                📝 Tapahtumat
+            </button>
 
-        <div class="page-header">
+            <button onclick="naytaSivu('tavoitteet')">
+                🎯 Tavoitteet
+            </button>
 
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+            <button onclick="naytaSivu('tilastot')">
+                📊 Tilastot
+            </button>
+
+            <button onclick="naytaSivu('budjetit')">
+                💳 Budjetit
+            </button>
+
+            <button onclick="naytaSivu('sijoitukset')">
+                📈 Sijoitukset
+            </button>
+
+            <button onclick="naytaSivu('asetukset')">
+                ⚙️ Asetukset
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <section id="etusivu" class="page active">
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1>Hei! 👋</h1>
+
+                    <p>Tässä on taloutesi yhteenveto.</p>
+
+                </div>
+
+            </header>
+
+            <!-- PREMIUM SALDO -->
+
+            <div class="balance-card">
+
+                <div>
+
+                    <span class="balance-label">
+                        Kokonaissaldo
+                    </span>
+
+                    <h2 id="saldo">
+                        0 €
+                    </h2>
+
+                    <small>
+                        Päivittyy automaattisesti
+                    </small>
+
+                </div>
+
+                <canvas id="saldoMiniChart"></canvas>
+
+            </div>
+
+            <!-- KPI -->
+
+            <div class="kpi-grid">
+
+                <div class="kpi-card">
+
+                    <span>Tulot</span>
+
+                    <h3 id="tulot">0 €</h3>
+
+                </div>
+
+                <div class="kpi-card">
+
+                    <span>Menot</span>
+
+                    <h3 id="menot">0 €</h3>
+
+                </div>
+
+                <div class="kpi-card">
+
+                    <span>Säästö</span>
+
+                    <h3 id="saasto">0 €</h3>
+
+                </div>
+
+                <div class="kpi-card">
+
+                    <span>Tapahtumia</span>
+
+                    <h3 id="maara">0</h3>
+
+                </div>
+
+            </div>
+
+<body>
+            <!-- YLÄRIVI -->
+
+            <div class="dashboard-grid">
+
+                <!-- TULOT JA MENOT -->
+
+                <div class="card chart-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Tulot ja menot
+                        </h2>
+
+                    </div>
+
+                    <canvas id="tulotMenotChart"></canvas>
+
+                </div>
+
+                <!-- TAVOITTEET -->
+
+                <div class="card goals-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Tavoitteet
+                        </h2>
+
+                    </div>
+
+                    <div class="goal-item">
+
+                        <div>
+
+                            <strong>Auton hankinta</strong>
+
+                            <small>6 200 € / 10 000 €</small>
+
+                        </div>
+
+                        <span>62%</span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-fill" style="width:62%"></div>
+
+                    </div>
+
+                    <div class="goal-item">
+
+                        <div>
+
+                            <strong>Lomamatka</strong>
+
+                            <small>1 450 € / 2 500 €</small>
+
+                        </div>
+
+                        <span>58%</span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-fill" style="width:58%"></div>
+
+                    </div>
+
+                    <div class="goal-item">
+
+                        <div>
+
+                            <strong>Sijoitusrahasto</strong>
+
+                            <small>2 300 € / 5 000 €</small>
+
+                        </div>
+
+                        <span>46%</span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-fill" style="width:46%"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TOINEN RIVI -->
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Viimeisimmät tapahtumat
+                        </h2>
+
+                    </div>
+
+                    <ul id="tapahtumat">
+
+                    </ul>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Saldon kehitys
+                        </h2>
+
+                    </div>
+
+                    <canvas id="saldoChart"></canvas>
+
+                </div>
+
+            </div>
+
+            <!-- BUDJETTIYHTEENVETO -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Budjettien yhteenveto
+                    </h2>
+
+                </div>
+
+                <div class="budget-grid">
+
+                    <div class="budget-item">
+
+                        <span>🍽️ Ruoka</span>
+
+                        <strong>212 € / 350 €</strong>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:61%">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="budget-item">
+
+                        <span>🚗 Auto</span>
+
+                        <strong>98 € / 150 €</strong>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:65%">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="budget-item">
+
+                        <span>🎮 Vapaa-aika</span>
+
+                        <strong>45 € / 100 €</strong>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:45%">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="budget-item">
+
+                        <span>🏠 Asuminen</span>
+
+                        <strong>650 € / 800 €</strong>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:81%">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+    <!-- ========================= -->
+    <!-- TAPAHTUMAT -->
+    <!-- ========================= -->
+
+    <section id="tapahtumat" class="page">
+
+        <div class="page-title">
 
             <h1>📝 Tapahtumat</h1>
 
+            <p>
+                Lisää, muokkaa ja seuraa kaikkia tapahtumiasi.
+            </p>
+
+        </div>
+
+        <div class="card form-card">
+
+            <h2>➕ Lisää tapahtuma</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Nimi</label>
+
+                    <input
+                        type="text"
+                        id="nimi"
+                        placeholder="Esim. Palkka">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Summa (€)</label>
+
+                    <input
+                        type="number"
+                        id="summa"
+                        placeholder="0">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Kategoria</label>
+
+                    <select id="kategoria">
+
+                        <option>Palkka</option>
+                        <option>Ruoka</option>
+                        <option>Asuminen</option>
+                        <option>Auto</option>
+                        <option>Liikenne</option>
+                        <option>Vapaa-aika</option>
+                        <option>Sijoitukset</option>
+                        <option>Muu</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Päivämäärä</label>
+
+                    <input
+                        type="date"
+                        id="paivamaara">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Tyyppi</label>
+
+                    <select id="tyyppi">
+
+                        <option value="tulo">
+                            🟢 Tulo
+                        </option>
+
+                        <option value="meno">
+                            🔴 Meno
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="lisaaTapahtuma()">
+
+                ➕ Lisää tapahtuma
+
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <div class="table-header">
+
+                <h2>📋 Tapahtumahistoria</h2>
+
+                <input
+                    type="text"
+                    id="haku"
+                    placeholder="🔍 Hae tapahtumia...">
+
+            </div>
+
+            <ul id="tapahtumat">
+
+            </ul>
+
         </div>
 
     </section>
+    <!-- ========================= -->
+    <!-- TAVOITTEET -->
+    <!-- ========================= -->
 
     <section id="tavoitteet" class="page">
 
-        <div class="page-header">
-
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+        <div class="page-title">
 
             <h1>🎯 Tavoitteet</h1>
 
+            <p>
+                Seuraa säästötavoitteidesi etenemistä.
+            </p>
+
+        </div>
+
+        <div class="goal-grid">
+
+            <div class="card">
+
+                <h2>🚗 Auto</h2>
+
+                <h3>6 200 € / 10 000 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:62%"></div>
+                </div>
+
+                <p>62 % saavutettu</p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🏝️ Lomamatka</h2>
+
+                <h3>1 450 € / 2 500 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:58%"></div>
+                </div>
+
+                <p>58 % saavutettu</p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>📈 Sijoitukset</h2>
+
+                <h3>2 300 € / 5 000 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:46%"></div>
+                </div>
+
+                <p>46 % saavutettu</p>
+
+            </div>
+
         </div>
 
     </section>
+
+    <!-- ========================= -->
+    <!-- TILASTOT -->
+    <!-- ========================= -->
 
     <section id="tilastot" class="page">
 
-        <div class="page-header">
-
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+        <div class="page-title">
 
             <h1>📊 Tilastot</h1>
 
+            <p>
+                Tarkastele taloutesi kehitystä.
+            </p>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="card">
+
+                <h2>Kuukausittaiset tulot</h2>
+
+                <canvas id="incomeChart"></canvas>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Kuukausittaiset menot</h2>
+
+                <canvas id="expenseChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="card">
+
+                <h2>Kategoriat</h2>
+
+                <canvas id="categoryChart"></canvas>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Saldon kehitys</h2>
+
+                <canvas id="historyChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <h3>Keskimääräinen kuukausisäästö</h3>
+
+                <h2 id="avgSavings">0 €</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h3>Suurin meno</h3>
+
+                <h2 id="largestExpense">0 €</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h3>Suurin tulo</h3>
+
+                <h2 id="largestIncome">0 €</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h3>Tapahtumia yhteensä</h3>
+
+                <h2 id="transactionCount">0</h2>
+
+            </div>
+
         </div>
 
     </section>
+    <!-- ========================= -->
+    <!-- BUDJETIT -->
+    <!-- ========================= -->
 
     <section id="budjetit" class="page">
 
-        <div class="page-header">
+        <div class="page-title">
 
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+            <h1>💳 Budjetit</h1>
 
-            <h1>💰 Budjetit</h1>
+            <p>
+                Seuraa kuukausibudjettiesi käyttöä.
+            </p>
+
+        </div>
+
+        <div class="budget-grid">
+
+            <div class="card">
+
+                <h2>🍽️ Ruoka</h2>
+
+                <h3>212 € / 350 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:61%"></div>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🏠 Asuminen</h2>
+
+                <h3>650 € / 800 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:81%"></div>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🚗 Auto</h2>
+
+                <h3>98 € / 150 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:65%"></div>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🎮 Vapaa-aika</h2>
+
+                <h3>45 € / 100 €</h3>
+
+                <div class="progress">
+                    <div class="progress-fill" style="width:45%"></div>
+                </div>
+
+            </div>
 
         </div>
 
     </section>
+
+    <!-- ========================= -->
+    <!-- SIJOITUKSET -->
+    <!-- ========================= -->
 
     <section id="sijoitukset" class="page">
 
-        <div class="page-header">
-
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+        <div class="page-title">
 
             <h1>📈 Sijoitukset</h1>
 
-        </div>
-
-    </section>
-
-    <section id="tilit" class="page">
-
-        <div class="page-header">
-
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
-
-            <h1>💳 Tilit</h1>
+            <p>
+                Seuraa sijoitussalkkusi kehitystä.
+            </p>
 
         </div>
 
-    </section>
+        <div class="dashboard-grid">
 
-    <section id="kalenteri" class="page">
+            <div class="card">
 
-        <div class="page-header">
+                <h2>Salkun arvo</h2>
 
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+                <h1 id="portfolioValue">
+                    1 400 €
+                </h1>
 
-            <h1>📅 Kalenteri</h1>
+                <p>
+                    Kokonaisarvo
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Tuotto</h2>
+
+                <h1 class="positive">
+                    +8,4 %
+                </h1>
+
+                <p>
+                    Kaikki sijoitukset
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Sijoitukset</h2>
+
+            <table class="investment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Kohde</th>
+                        <th>Arvo</th>
+                        <th>Tuotto</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>S&P 500</td>
+
+                        <td>800 €</td>
+
+                        <td class="positive">
+                            +10,2 %
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Eurooppa</td>
+
+                        <td>300 €</td>
+
+                        <td class="positive">
+                            +4,6 %
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Suomi</td>
+
+                        <td>300 €</td>
+
+                        <td class="positive">
+                            +6,3 %
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Salkun kehitys</h2>
+
+            <canvas id="portfolioChart"></canvas>
 
         </div>
 
     </section>
+    <!-- ========================= -->
+    <!-- ASETUKSET -->
+    <!-- ========================= -->
 
     <section id="asetukset" class="page">
 
-        <div class="page-header">
-
-            <button class="home-btn" onclick="naytaSivu('etusivu')">🏠</button>
+        <div class="page-title">
 
             <h1>⚙️ Asetukset</h1>
+
+            <p>
+                Hallitse sovelluksen asetuksia.
+            </p>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="card">
+
+                <h2>👤 Profiili</h2>
+
+                <div class="setting-item">
+
+                    <label>Nimi</label>
+
+                    <input
+                        type="text"
+                        id="userName"
+                        placeholder="Kirjoita nimesi">
+
+                </div>
+
+                <div class="setting-item">
+
+                    <label>Kuukausibudjetti (€)</label>
+
+                    <input
+                        type="number"
+                        id="monthlyBudget"
+                        placeholder="0">
+
+                </div>
+
+                <button class="primary-btn">
+                    💾 Tallenna
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🎨 Ulkoasu</h2>
+
+                <button class="secondary-btn"
+                        onclick="toggleTheme()">
+
+                    🌙 Tumma / Vaalea tila
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="card">
+
+                <h2>📤 Vie tiedot</h2>
+
+                <button class="primary-btn"
+                        onclick="exportCSV()">
+
+                    Vie CSV
+
+                </button>
+
+                <button class="primary-btn"
+                        onclick="window.print()">
+
+                    Tulosta PDF
+
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <h2>💾 Varmuuskopio</h2>
+
+                <button class="primary-btn"
+                        onclick="backupData()">
+
+                    Luo varmuuskopio
+
+                </button>
+
+                <button class="secondary-btn"
+                        onclick="restoreData()">
+
+                    Palauta varmuuskopio
+
+                </button>
+
+            </div>
 
         </div>
 
     </section>
 
-</div>
-
-<section id="etusivu">
-
-<div class="container">
-
-<h1>💰 Budget App</h1>
-
-    <div id="etusivuKaaviot">
-
-    <h2>📊 Omat tilastot</h2>
+</main>
 
 </div>
-
-<p class="subtitle">
-
-Hallitse talouttasi helposti.
-
-</p>
-
-<div class="saldo-kortti">
-
-    <div class="saldo-card">
-
-    <span class="saldo-label">Nykyinen saldo</span>
-
-    <h1 id="saldo">0 €</h1>
-
-</div>
-
-    <div class="saldo-arvo">
-
-        <span id="saldo">0 €</span>
-
-    </div>
-
-</div>
-
-<div class="yhteenveto">
-
-    <div class="kortti">
-
-        <h3>💰 Tulot</h3>
-
-        <p id="tulot">0 €</p>
-
-    </div>
-
-    <div class="kortti">
-
-        <h3>💸 Menot</h3>
-
-        <p id="menot">0 €</p>
-
-    </div>
-
-</div>
-
-<div class="stats-row">
-
-    <div class="mini-card">
-
-        <span class="label">
-
-            Säästö
-
-        </span>
-
-        <span id="saasto">
-
-            0 €
-
-        </span>
-
-    </div>
-
-    <div class="mini-card">
-
-        <span class="label">
-
-            Tapahtumia
-
-        </span>
-
-        <span id="maara">
-
-            0
-
-        </span>
-
-    </div>
-
-</div>
-
-<div class="form-card">
-
-<h2>
-
-Lisää tapahtuma
-
-</h2>
-
-<div class="form-group">
-
-<label>
-
-Nimi
-
-</label>
-
-<input
-type="text"
-id="nimi"
-placeholder="Esim. Palkka">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Summa (€)
-
-</label>
-
-<input
-type="number"
-id="summa"
-placeholder="0">
-
-</div>
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label>
-
-Kategoria
-
-</label>
-
-<select id="kategoria">
-
-<option value="Palkka">💰 Palkka</option>
-<option value="Ruoka">🛒 Ruoka</option>
-<option value="Asuminen">🏠 Asuminen</option>
-<option value="Auto">🚗 Auto</option>
-<option value="Liikenne">🚌 Liikenne</option>
-<option value="Vapaa-aika">🎮 Vapaa-aika</option>
-<option value="Ravintola">🍔 Ravintola</option>
-<option value="Terveys">🏥 Terveys</option>
-<option value="Ostokset">🛍️ Ostokset</option>
-<option value="Sijoitukset">📈 Sijoitukset</option>
-<option value="Muu">📦 Muu</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Päivämäärä
-
-</label>
-
-<input
-type="date"
-id="paivamaara">
-
-</div>
-
-</div>
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label>
-
-Tyyppi
-
-</label>
-
-<select id="tyyppi">
-
-<option value="tulo">🟢 Tulo</option>
-
-<option value="meno">🔴 Meno</option>
-
-</select>
-
-</div>
-
-</div>
-
-<button onclick="lisaaTapahtuma()">
-
-➕ Lisää tapahtuma
-
-</button>
-
-</div>
-
-<h2>📝 Tapahtumat</h2>
-
-<input
-    type="text"
-    id="haku"
-    placeholder="🔍 Hae tapahtumia...">
-
-<ul id="tapahtumat"></ul>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- KUUKAUSITAVOITTEET -->
-<!-- ========================= -->
-
-<section id="tavoitteet" style="display:none;">
-
-<div class="container">
-
-<h1>🎯 Kuukausitavoitteet</h1>
-
-<div class="goal-card">
-
-    <h2>Säästötavoite</h2>
-
-    <input
-        type="number"
-        id="tavoite"
-        placeholder="Esim. 500">
-
-    <button onclick="tallennaTavoite()">
-
-        💾 Tallenna tavoite
-
-    </button>
-
-    <h3 id="tavoiteTeksti">
-
-        Tavoitetta ei ole asetettu.
-
-    </h3>
-
-    <div class="progress">
-
-        <div
-            id="progressBar"
-            class="progress-fill">
-
-        </div>
-
-    </div>
-
-    <p id="progressProsentti">
-
-        0 %
-
-    </p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- TILASTOT -->
-<!-- ========================= -->
-
-<section id="tilastot" style="display:none;">
-
-<div class="container">
-
-<h1>📊 Tilastot</h1>
-
-<div class="chart-card">
-
-<h2>
-
-Tulot vs Menot
-
-</h2>
-
-<canvas id="tulotMenotChart"></canvas>
-
-</div>
-
-<div class="chart-card">
-
-<h2>
-
-Menot kategorioittain
-
-</h2>
-
-<canvas id="kategoriaChart"></canvas>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- BUDJETIT -->
-<!-- ========================= -->
-
-<section id="budjetit" style="display:none;">
-
-<div class="container">
-
-<h1>💳 Budjetit</h1>
-
-<p>
-
-Täällä voit luoda kuukausibudjetteja eri kategorioille.
-
-</p>
-
-<div class="budget-card">
-
-<h2>Ruokabudjetti</h2>
-
-<p>0 € / 400 €</p>
-
-<div class="progress">
-
-<div class="progress-fill" style="width:0%;"></div>
-
-</div>
-
-</div>
-
-<div class="budget-card">
-
-<h2>Auto</h2>
-
-<p>0 € / 250 €</p>
-
-<div class="progress">
-
-<div class="progress-fill" style="width:0%;"></div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<div class="chart-card">
-
-    <h2>📈 Saldon kehitys</h2>
-
-    <canvas id="saldoChart"></canvas>
-
-</div>
-
-<!-- ========================= -->
-<!-- SIJOITUKSET -->
-<!-- ========================= -->
-
-<section id="sijoitukset" style="display:none;">
-
-<div class="container">
-
-<h1>📈 Sijoitukset</h1>
-
-<div class="investment-card">
-
-<h2>Salkun arvo</h2>
-
-<h1 id="portfolioValue">
-
-0 €
-
-</h1>
-
-</div>
-
-<div class="investment-card">
-
-<h2>Kuukausisijoitus</h2>
-
-<input
-type="number"
-id="monthlyInvestment"
-placeholder="Esim. 900">
-
-<button>
-
-Tallenna
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- ASETUKSET -->
-<!-- ========================= -->
-
-<section id="asetukset" style="display:none;">
-
-<div class="container">
-
-<h1>⚙️ Asetukset</h1>
-
-<button>
-
-🌙 Tumma tila
-
-</button>
-
-<button>
-
-📤 Vie tiedot
-
-</button>
-
-<button>
-
-🗑️ Tyhjennä kaikki tiedot
-
-</button>
-
-</div>
-
-</section>
-
-</div>
-
-<!-- Chart.js -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="script.js"></script>
 
