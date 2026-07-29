@@ -1,7 +1,16 @@
 /* ======================================
    FINERO 3.0
 ====================================== */
+const SUPABASE_URL = "https://aaalfykbovslexndompa.supabase.co";
 
+const SUPABASE_ANON_KEY = "sb_publishable_G7z8XDhx1mZpeOSGqk9ONw_lWHxJ0y6";
+
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+// Tämän jälkeen alkaa muu koodisi
+// ...
 let tapahtumat = JSON.parse(localStorage.getItem("tapahtumat")) || [];
 
 let incomeChart;
