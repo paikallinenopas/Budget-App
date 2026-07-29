@@ -24,6 +24,7 @@ const sb = window.supabase.createClient(
 
     tapahtumat = data || [];
     paivitaKaikki();
+    }
 }
     SUPABASE_URL,
     SUPABASE_ANON_KEY
