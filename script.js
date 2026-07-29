@@ -869,6 +869,7 @@ async function login() {
 
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("appContent").style.display = "block";
+    }
 }
 
 registerButton.addEventListener("click", register);
