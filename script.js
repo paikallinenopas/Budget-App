@@ -1,201 +1,180 @@
-// ========================================
-// Budget App v2.0
-// Osa 1/4
-// ========================================
+/* ======================================
+   FINERO 3.0
+====================================== */
 
-// -------------------------------
-// DOM
-// -------------------------------
+let tapahtumat = JSON.parse(localStorage.getItem("tapahtumat")) || [];
 
-const saldoElementti = document.getElementById("saldo");
-const tulotElementti = document.getElementById("tulot");
-const menotElementti = document.getElementById("menot");
-const saastoElementti = document.getElementById("saasto");
-const maaraElementti = document.getElementById("maara");
+let incomeChart;
+let expenseChart;
+let categoryChart;
+let historyChart;
+let portfolioChart;
+let saldoMiniChart;
+let tulotMenotChart;
 
-const lista = document.getElementById("tapahtumat");
+/* ======================================
+   SIVUN VAIHTO
+====================================== */
 
-const nimiInput = document.getElementById("nimi");
-const summaInput = document.getElementById("summa");
-const kategoriaInput = document.getElementById("kategoria");
-const paivamaaraInput = document.getElementById("paivamaara");
-const tyyppiInput = document.getElementById("tyyppi");
+function naytaSivu(sivuId){
 
-const hakuInput = document.getElementById("haku");
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
 
-// -------------------------------
-// Data
-// -------------------------------
+    const sivu = document.getElementById(sivuId);
 
-let tapahtumat =
-    JSON.parse(localStorage.getItem("tapahtumat")) || [];
+    if(sivu){
+        sivu.classList.add("active");
+    }
 
-let muokattavaId = null;
+}
 
-// -------------------------------
-// Tallennus
-// -------------------------------
+/* ======================================
+   LOCAL STORAGE
+====================================== */
 
-function tallenna() {
+function tallenna(){
 
     localStorage.setItem(
-
         "tapahtumat",
-
         JSON.stringify(tapahtumat)
-
     );
 
 }
 
-// -------------------------------
-// Tyhjennä lomake
-// -------------------------------
+/* ======================================
+   APUTOIMINNOT
+====================================== */
 
-function tyhjennaLomake(){
+function euro(summa){
 
-    nimiInput.value = "";
+    return Number(summa).toLocaleString("fi-FI",{
 
-    summaInput.value = "";
+        style:"currency",
 
-    paivamaaraInput.value = "";
+        currency:"EUR"
 
-    kategoriaInput.selectedIndex = 0;
-
-    tyyppiInput.selectedIndex = 0;
+    });
 
 }
 
-// -------------------------------
-// Lisää tapahtuma
-// -------------------------------
+function paivitaKaikki(){
+
+    paivitaSaldo();
+
+    piirraTapahtumat();
+
+    paivitaTilastot();
+
+    piirraKaaviot();
+
+}
+
+/* ======================================
+   KÄYNNISTYS
+====================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    naytaSivu("etusivu");
+
+    paivitaKaikki();
+
+});
+/* ======================================
+   TAPAHTUMAT
+====================================== */
 
 function lisaaTapahtuma(){
 
-    const nimi = nimiInput.value.trim();
+    const nimi = document.getElementById("nimi").value.trim();
+    const summa = Number(document.getElementById("summa").value);
+    const tyyppi = document.getElementById("tyyppi").value;
+    const kategoria = document.getElementById("kategoria").value;
+    const paiva = document.getElementById("paiva").value;
 
-    const summa = Number(summaInput.value);
+    if(nimi==="" || !summa || !paiva){
 
-    const kategoria = kategoriaInput.value;
-
-    const paivamaara = paivamaaraInput.value;
-
-    const tyyppi = tyyppiInput.value;
-
-    if(nimi===""){
-
-        alert("Anna tapahtuman nimi.");
+        alert("Täytä kaikki kentät.");
 
         return;
 
     }
 
-    if(summa<=0){
+    tapahtumat.unshift({
 
-        alert("Anna kelvollinen summa.");
-
-        return;
-
-    }
-
-    const tapahtuma={
-
-        id:
-            muokattavaId ?? Date.now(),
+        id:Date.now(),
 
         nimi,
 
         summa,
 
+        tyyppi,
+
         kategoria,
 
-        paivamaara,
+        paiva,
 
-        tyyppi
+        luotu:new Date().toLocaleString("fi-FI")
 
-    };
-
-    if(muokattavaId){
-
-        const indeksi =
-            tapahtumat.findIndex(
-
-                t=>t.id===muokattavaId
-
-            );
-
-        tapahtumat[indeksi]=tapahtuma;
-
-        muokattavaId=null;
-
-    }else{
-
-        tapahtumat.push(tapahtuma);
-
-    }
+    });
 
     tallenna();
 
-    tyhjennaLomake();
+    paivitaKaikki();
 
-    piirraTapahtumat();
-
-    paivitaYhteenveto();
+    document.getElementById("nimi").value="";
+    document.getElementById("summa").value="";
+    document.getElementById("paiva").value="";
 
 }
 
-// ========================================
-// Budget App v2.0
-// Osa 2/4
-// ========================================
+/* ======================================
+   TAPAHTUMALISTA
+====================================== */
 
-// -------------------------------
-// Piirrä tapahtumat
-// -------------------------------
+function piirraTapahtumat(){
 
-function piirraTapahtumat() {
+    const lista=document.getElementById("tapahtumat");
 
-    lista.innerHTML = "";
+    if(!lista) return;
 
-    tapahtumat.forEach(t => {
+    lista.innerHTML="";
 
-        const li = document.createElement("li");
+    tapahtumat.forEach(t=>{
 
-        li.style.display = "flex";
-        li.style.justifyContent = "space-between";
-        li.style.alignItems = "center";
+        const li=document.createElement("li");
 
-        li.innerHTML = `
+        li.innerHTML=`
 
             <div>
 
                 <strong>${t.nimi}</strong><br>
 
-                <small>
-
-                    ${t.kategoria} • ${t.paivamaara}
-
-                </small>
+                <small>${t.kategoria} • ${t.paiva}</small>
 
             </div>
 
-            <div style="display:flex;align-items:center;gap:10px;">
+            <div>
 
-                <strong style="color:${t.tyyppi === "tulo" ? "#16a34a" : "#dc2626"}">
+                <strong class="${t.tyyppi==="Tulo"?"positive":"negative"}">
 
-                    ${t.tyyppi === "tulo" ? "+" : "-"}${t.summa.toLocaleString("fi-FI")} €
+                    ${t.tyyppi==="Tulo"?"+":"-"}${euro(t.summa)}
 
                 </strong>
 
+                <br>
+
                 <button onclick="muokkaaTapahtuma(${t.id})">
 
-                    ✏️
+                    Muokkaa
 
                 </button>
 
                 <button onclick="poistaTapahtuma(${t.id})">
 
-                    🗑️
+                    Poista
 
                 </button>
 
@@ -209,254 +188,15 @@ function piirraTapahtumat() {
 
 }
 
-// -------------------------------
-// Poista tapahtuma
-// -------------------------------
+/* ======================================
+   POISTO
+====================================== */
 
-function poistaTapahtuma(id) {
+function poistaTapahtuma(id){
 
-    if (!confirm("Poistetaanko tapahtuma?")) {
+    if(!confirm("Poistetaanko tapahtuma?")) return;
 
-        return;
-
-    }
-
-    tapahtumat = tapahtumat.filter(
-
-        t => t.id !== id
-
-    );
-
-    tallenna();
-
-    piirraTapahtumat();
-
-    paivitaYhteenveto();
-
-    paivitaKaaviot();
-
-}
-
-// -------------------------------
-// Muokkaa tapahtumaa
-// -------------------------------
-
-function muokkaaTapahtuma(id) {
-
-    const t = tapahtumat.find(
-
-        x => x.id === id
-
-    );
-
-    if (!t) return;
-
-    muokattavaId = id;
-
-    nimiInput.value = t.nimi;
-
-    summaInput.value = t.summa;
-
-    kategoriaInput.value = t.kategoria;
-
-    paivamaaraInput.value = t.paivamaara;
-
-    tyyppiInput.value = t.tyyppi;
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-// ========================================
-// Budget App v2.0
-// Osa 3/4
-// ========================================
-
-// -------------------------------
-// Päivitä yhteenveto
-// -------------------------------
-
-function paivitaYhteenveto() {
-
-    let tulot = 0;
-    let menot = 0;
-
-    tapahtumat.forEach(t => {
-
-        if (t.tyyppi === "tulo") {
-            tulot += t.summa;
-        } else {
-            menot += t.summa;
-        }
-
-    });
-
-    const saldo = tulot - menot;
-
-    saldoElementti.textContent =
-        saldo.toLocaleString("fi-FI") + " €";
-
-    tulotElementti.textContent =
-        tulot.toLocaleString("fi-FI") + " €";
-
-    menotElementti.textContent =
-        menot.toLocaleString("fi-FI") + " €";
-
-    if (saastoElementti) {
-
-        saastoElementti.textContent =
-            saldo.toLocaleString("fi-FI") + " €";
-
-    }
-
-    if (maaraElementti) {
-
-        maaraElementti.textContent =
-            tapahtumat.length;
-
-    }
-
-}
-
-// -------------------------------
-// Hakutoiminto
-// -------------------------------
-
-if (hakuInput) {
-
-    hakuInput.addEventListener("input", function () {
-
-        const haku = this.value.toLowerCase();
-
-        document.querySelectorAll("#tapahtumat li")
-            .forEach(rivi => {
-
-                if (rivi.innerText.toLowerCase().includes(haku)) {
-
-                    rivi.style.display = "flex";
-
-                } else {
-
-                    rivi.style.display = "none";
-
-                }
-
-            });
-
-    });
-
-}
-
-// -------------------------------
-// Enter lisää tapahtuman
-// -------------------------------
-
-summaInput.addEventListener("keypress", function (e) {
-
-    if (e.key === "Enter") {
-
-        lisaaTapahtuma();
-
-    }
-
-});
-
-// -------------------------------
-// Alustus
-// -------------------------------
-
-piirraTapahtumat();
-
-paivitaYhteenveto();
-
-// ========================================
-// Budget App v2.0
-// Osa 4/4
-// ========================================
-
-// -------------------------------
-// Lajittele tapahtumat päivämäärän mukaan
-// -------------------------------
-
-function lajitteleTapahtumat() {
-
-    tapahtumat.sort((a, b) => {
-
-        if (!a.paivamaara || !b.paivamaara) {
-
-            return b.id - a.id;
-
-        }
-
-        return new Date(b.paivamaara) - new Date(a.paivamaara);
-
-    });
-
-}
-
-// -------------------------------
-// Päivitä kaikki näkymät
-// -------------------------------
-
-function paivitaKaikki() {
-
-    lajitteleTapahtumat();
-
-    piirraTapahtumat();
-
-    paivitaYhteenveto();
-    paivitaTavoite();
-
-    tallenna();
-
-}
-
-// -------------------------------
-// Vie tiedot JSON-tiedostoksi
-// -------------------------------
-
-function vieJSON() {
-
-    const data = JSON.stringify(tapahtumat, null, 2);
-
-    const blob = new Blob([data], {
-        type: "application/json"
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const linkki = document.createElement("a");
-
-    linkki.href = url;
-    linkki.download = "budget-data.json";
-
-    linkki.click();
-
-    URL.revokeObjectURL(url);
-
-}
-
-// -------------------------------
-// Tyhjennä kaikki tiedot
-// -------------------------------
-
-function tyhjennaKaikki() {
-
-    if (!confirm("Haluatko varmasti poistaa kaikki tapahtumat?")) {
-
-        return;
-
-    }
-
-    tapahtumat = [];
-
-    muokattavaId = null;
+    tapahtumat=tapahtumat.filter(t=>t.id!==id);
 
     tallenna();
 
@@ -464,306 +204,565 @@ function tyhjennaKaikki() {
 
 }
 
-// -------------------------------
-// Näytä tämän kuukauden saldo
-// -------------------------------
+/* ======================================
+   MUOKKAUS
+====================================== */
 
-function tamanKuukaudenSaldo() {
+function muokkaaTapahtuma(id){
 
-    const nyt = new Date();
+    const t=tapahtumat.find(x=>x.id===id);
 
-    const vuosi = nyt.getFullYear();
-    const kuukausi = nyt.getMonth();
+    if(!t) return;
 
-    let saldo = 0;
+    document.getElementById("nimi").value=t.nimi;
+    document.getElementById("summa").value=t.summa;
+    document.getElementById("tyyppi").value=t.tyyppi;
+    document.getElementById("kategoria").value=t.kategoria;
+    document.getElementById("paiva").value=t.paiva;
 
-    tapahtumat.forEach(t => {
+    tapahtumat=tapahtumat.filter(x=>x.id!==id);
 
-        if (!t.paivamaara) return;
+    tallenna();
 
-        const p = new Date(t.paivamaara);
-
-        if (
-            p.getFullYear() === vuosi &&
-            p.getMonth() === kuukausi
-        ) {
-
-            if (t.tyyppi === "tulo") {
-
-                saldo += t.summa;
-
-            } else {
-
-                saldo -= t.summa;
-
-            }
-
-        }
-
-    });
-
-    return saldo;
+    paivitaKaikki();
 
 }
-
-// -------------------------------
-// Käynnistys
-// -------------------------------
-
-paivitaKaikki();
-
-console.log("Budget App käynnistetty onnistuneesti.");
-
-// ===============================
-// KUUKAUSITAVOITTEET
-// ===============================
-
-let kuukausiTavoite =
-    Number(localStorage.getItem("kuukausiTavoite")) || 0;
-
-function tallennaTavoite() {
-
-    const arvo = Number(
-        document.getElementById("tavoite").value
-    );
-
-    if (arvo <= 0) {
-
-        alert("Anna kelvollinen tavoite.");
-
-        return;
-
-    }
-
-    kuukausiTavoite = arvo;
-
-    localStorage.setItem(
-        "kuukausiTavoite",
-        kuukausiTavoite
-    );
-
-function paivitaTavoite() {
-
-    const teksti = document.getElementById("tavoiteTeksti");
-    const progress = document.getElementById("progressBar");
-    const prosentti = document.getElementById("progressProsentti");
-
-    if (!teksti || !progress || !prosentti) return;
-
-    if (kuukausiTavoite <= 0) {
-
-        teksti.textContent = "Tavoitetta ei ole asetettu.";
-        progress.style.width = "0%";
-        prosentti.textContent = "0 %";
-
-        return;
-    }
-
-    const saldo = tapahtumat.reduce((summa, t) => {
-
-        return t.tyyppi === "tulo"
-            ? summa + t.summa
-            : summa - t.summa;
-
-    }, 0);
-
-    let edistyminen = (saldo / kuukausiTavoite) * 100;
-
-    if (edistyminen < 0) edistyminen = 0;
-    if (edistyminen > 100) edistyminen = 100;
-
-    teksti.textContent =
-        `Tavoite: ${kuukausiTavoite.toLocaleString("fi-FI")} €`;
-
-    progress.style.width = edistyminen + "%";
-
-    prosentti.textContent =
-        `${edistyminen.toFixed(0)} %`;
-
-    // Väri edistymisen mukaan
-    if (edistyminen < 40) {
-
-        progress.style.background = "#ef4444";
-
-    } else if (edistyminen < 80) {
-
-        progress.style.background = "#f59e0b";
-
-    } else {
-
-        progress.style.background = "#22c55e";
-
-    }
-
-    }
-}
-
-// ===============================
-// CHART.JS
-// ===============================
-
-let saldoChart;
-let kategoriaChart;
-let tulotMenotChart;
-
-function paivitaKaaviot() {
-
-    // Tuhoa vanhat kaaviot
-
-    if (saldoChart) saldoChart.destroy();
-    if (kategoriaChart) kategoriaChart.destroy();
-    if (tulotMenotChart) tulotMenotChart.destroy();
-
-    // -------------------------
-    // SALDON KEHITYS
-    // -------------------------
-
-    let saldo = 0;
-
-    const saldot = [];
-    const paivat = [];
-
-    tapahtumat.forEach(t => {
-
-        if (t.tyyppi === "tulo") {
-
-            saldo += t.summa;
-
-        } else {
-
-            saldo -= t.summa;
-
-        }
-
-        saldot.push(saldo);
-
-        paivat.push(t.paivamaara || "");
-
-    });
-
-    saldoChart = new Chart(
-
-        document.getElementById("saldoChart"),
-
-        {
-
-            type: "line",
-
-            data: {
-
-                labels: paivat,
-
-                datasets: [{
-
-                    label: "Saldo",
-
-                    data: saldot,
-
-                    borderWidth: 3,
-
-                    tension: 0.3,
-
-                    fill: false
-
-                }]
-
-            }
-
-        }
-
-    );
-
-    // -------------------------
-    // MENOT KATEGORIOITTAIN
-    // -------------------------
-
-    const kategoriat = {};
-
-    tapahtumat.forEach(t => {
-
-        if (t.tyyppi === "meno") {
-
-            if (!kategoriat[t.kategoria]) {
-
-                kategoriat[t.kategoria] = 0;
-
-            }
-
-            kategoriat[t.kategoria] += t.summa;
-
-        }
-
-    });
-
-    kategoriaChart = new Chart(
-
-        document.getElementById("kategoriaChart"),
-
-        {
-
-            type: "pie",
-
-            data: {
-
-                labels: Object.keys(kategoriat),
-
-                datasets: [{
-
-                    data: Object.values(kategoriat)
-
-                }]
-
-            }
-
-        }
-
-    );
-    
-    // -------------------------
-    // TULOT VS MENOT
-    // -------------------------
+/* ======================================
+   SALDON JA KPI-KORTTIEN PÄIVITYS
+====================================== */
+
+function paivitaSaldo(){
 
     let tulot = 0;
     let menot = 0;
 
-    tapahtumat.forEach(t => {
+    tapahtumat.forEach(t=>{
 
-        if (t.tyyppi === "tulo") {
+        if(t.tyyppi==="Tulo"){
+            tulot += Number(t.summa);
+        }else{
+            menot += Number(t.summa);
+        }
 
-            tulot += t.summa;
+    });
 
-        } else {
+    const saldo = tulot - menot;
 
-            menot += t.summa;
+    const saldoEl = document.getElementById("saldo");
+    const tulotEl = document.getElementById("tulot");
+    const menotEl = document.getElementById("menot");
+    const tapahtumatEl = document.getElementById("tapahtumienMaara");
+
+    if(saldoEl){
+        saldoEl.textContent = euro(saldo);
+    }
+
+    if(tulotEl){
+        tulotEl.textContent = euro(tulot);
+    }
+
+    if(menotEl){
+        menotEl.textContent = euro(menot);
+    }
+
+    if(tapahtumatEl){
+        tapahtumatEl.textContent = tapahtumat.length;
+    }
+
+}
+
+/* ======================================
+   TILASTOKORTIT
+====================================== */
+
+function paivitaTilastot(){
+
+    let tulot = 0;
+    let menot = 0;
+
+    tapahtumat.forEach(t=>{
+
+        if(t.tyyppi==="Tulo"){
+            tulot += Number(t.summa);
+        }else{
+            menot += Number(t.summa);
+        }
+
+    });
+
+    const saldo = tulot - menot;
+
+    const keskiarvo =
+        tapahtumat.length > 0
+        ? menot / tapahtumat.filter(t=>t.tyyppi==="Meno").length
+        : 0;
+
+    const saldoStat = document.getElementById("statSaldo");
+    const tulotStat = document.getElementById("statTulot");
+    const menotStat = document.getElementById("statMenot");
+    const keskiStat = document.getElementById("statKeskiarvo");
+
+    if(saldoStat){
+        saldoStat.textContent = euro(saldo);
+    }
+
+    if(tulotStat){
+        tulotStat.textContent = euro(tulot);
+    }
+
+    if(menotStat){
+        menotStat.textContent = euro(menot);
+    }
+
+    if(keskiStat){
+        keskiStat.textContent = euro(
+            isFinite(keskiarvo) ? keskiarvo : 0
+        );
+    }
+
+}
+
+/* ======================================
+   TAVOITTEEN ETENEMINEN
+====================================== */
+
+function paivitaTavoite(){
+
+    const tavoite = Number(
+        localStorage.getItem("kuukausitavoite")
+    ) || 0;
+
+    let menot = 0;
+
+    tapahtumat.forEach(t=>{
+
+        if(t.tyyppi==="Meno"){
+
+            menot += Number(t.summa);
 
         }
 
     });
 
-    tulotMenotChart = new Chart(
+    const prosentti =
+        tavoite > 0
+        ? Math.min((menot / tavoite) * 100,100)
+        : 0;
 
-        document.getElementById("tulotMenotChart"),
+    const progress = document.querySelector(".progress-fill");
 
-        {
+    if(progress){
 
-            type: "bar",
+        progress.style.width = prosentti + "%";
 
-            data: {
+    }
 
-                labels: ["Tulot", "Menot"],
+    const tavoiteTeksti =
+        document.getElementById("tavoiteProsentti");
 
-                datasets: [{
+    if(tavoiteTeksti){
 
-                    data: [tulot, menot]
+        tavoiteTeksti.textContent =
+            prosentti.toFixed(0) + "%";
 
-                }]
+    }
+
+}
+
+/* ======================================
+   KAIKKI PÄIVITYKSET
+====================================== */
+
+function paivitaKaikki(){
+
+    paivitaSaldo();
+
+    piirraTapahtumat();
+
+    paivitaTilastot();
+
+    paivitaTavoite();
+
+    piirraKaaviot();
+
+}
+/* ======================================
+   CHART.JS
+====================================== */
+
+function piirraKaaviot(){
+
+    piirraSaldoMiniChart();
+
+    piirraTulotMenotChart();
+
+    piirraKategoriatChart();
+
+}
+
+/* ======================================
+   SALDOMINIKAAVIO
+====================================== */
+
+function piirraSaldoMiniChart(){
+
+    const canvas=document.getElementById("saldoMiniChart");
+
+    if(!canvas) return;
+
+    let saldo=0;
+
+    const historia=[];
+
+    tapahtumat.slice().reverse().forEach(t=>{
+
+        if(t.tyyppi==="Tulo"){
+            saldo+=Number(t.summa);
+        }else{
+            saldo-=Number(t.summa);
+        }
+
+        historia.push(saldo);
+
+    });
+
+    if(saldoMiniChart){
+
+        saldoMiniChart.destroy();
+
+    }
+
+    saldoMiniChart=new Chart(canvas,{
+
+        type:"line",
+
+        data:{
+
+            labels:historia.map((_,i)=>i+1),
+
+            datasets:[{
+
+                data:historia,
+
+                borderColor:"#22c55e",
+
+                borderWidth:3,
+
+                fill:false,
+
+                tension:.4,
+
+                pointRadius:0
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            maintainAspectRatio:false,
+
+            plugins:{
+
+                legend:{
+                    display:false
+                }
+
+            },
+
+            scales:{
+
+                x:{
+                    display:false
+                },
+
+                y:{
+                    display:false
+                }
 
             }
 
         }
 
-    );
+    });
 
 }
 
-paivitaKaaviot();
+/* ======================================
+   TULOT VS MENOT
+====================================== */
+
+function piirraTulotMenotChart(){
+
+    const canvas=document.getElementById("tulotMenotChart");
+
+    if(!canvas) return;
+
+    let tulot=0;
+
+    let menot=0;
+
+    tapahtumat.forEach(t=>{
+
+        if(t.tyyppi==="Tulo"){
+
+            tulot+=Number(t.summa);
+
+        }else{
+
+            menot+=Number(t.summa);
+
+        }
+
+    });
+
+    if(tulotMenotChart){
+
+        tulotMenotChart.destroy();
+
+    }
+
+    tulotMenotChart=new Chart(canvas,{
+
+        type:"doughnut",
+
+        data:{
+
+            labels:["Tulot","Menot"],
+
+            datasets:[{
+
+                data:[tulot,menot],
+
+                backgroundColor:[
+
+                    "#22c55e",
+
+                    "#ef4444"
+
+                ]
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+
+                    position:"bottom"
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+/* ======================================
+   KATEGORIAT
+====================================== */
+
+function piirraKategoriatChart(){
+
+    const canvas=document.getElementById("categoryChart");
+
+    if(!canvas) return;
+
+    const kategoriat={};
+
+    tapahtumat.forEach(t=>{
+
+        if(t.tyyppi==="Meno"){
+
+            kategoriat[t.kategoria]=(kategoriat[t.kategoria]||0)+Number(t.summa);
+
+        }
+
+    });
+
+    if(categoryChart){
+
+        categoryChart.destroy();
+
+    }
+
+    categoryChart=new Chart(canvas,{
+
+        type:"bar",
+
+        data:{
+
+            labels:Object.keys(kategoriat),
+
+            datasets:[{
+
+                label:"Menot",
+
+                data:Object.values(kategoriat)
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+                    display:false
+                }
+
+            }
+
+        }
+
+    });
+
+}
+/* ======================================
+   HAKU
+====================================== */
+
+function haeTapahtumat(){
+
+    const haku = document
+        .getElementById("haku")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll("#tapahtumat li").forEach(rivi=>{
+
+        if(rivi.textContent.toLowerCase().includes(haku)){
+
+            rivi.style.display="flex";
+
+        }else{
+
+            rivi.style.display="none";
+
+        }
+
+    });
+
+}
+
+/* ======================================
+   KUUKAUSITAVOITE
+====================================== */
+
+function tallennaTavoite(){
+
+    const tavoite = Number(
+        document.getElementById("kuukausiTavoite").value
+    );
+
+    localStorage.setItem(
+        "kuukausitavoite",
+        tavoite
+    );
+
+    paivitaTavoite();
+
+    alert("Tavoite tallennettu.");
+
+}
+
+/* ======================================
+   CSV-VIENTI
+====================================== */
+
+function vieCSV(){
+
+    let csv =
+        "Nimi;Tyyppi;Kategoria;Summa;Päivä\n";
+
+    tapahtumat.forEach(t=>{
+
+        csv +=
+            `${t.nimi};${t.tyyppi};${t.kategoria};${t.summa};${t.paiva}\n`;
+
+    });
+
+    const blob = new Blob(
+
+        [csv],
+
+        {type:"text/csv;charset=utf-8;"}
+
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "finero_tapahtumat.csv";
+
+    link.click();
+
+}
+
+/* ======================================
+   TYHJENNÄ KAIKKI
+====================================== */
+
+function tyhjennaKaikki(){
+
+    if(!confirm("Poistetaanko kaikki tapahtumat?")){
+
+        return;
+
+    }
+
+    tapahtumat = [];
+
+    tallenna();
+
+    paivitaKaikki();
+
+}
+
+/* ======================================
+   ASETUKSET
+====================================== */
+
+function lataaAsetukset(){
+
+    const tavoite =
+        localStorage.getItem("kuukausitavoite");
+
+    const kentta =
+        document.getElementById("kuukausiTavoite");
+
+    if(kentta && tavoite){
+
+        kentta.value = tavoite;
+
+    }
+
+}
+
+/* ======================================
+   KÄYNNISTYS
+====================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    naytaSivu("etusivu");
+
+    lataaAsetukset();
+
+    paivitaKaikki();
+
+});
