@@ -861,3 +861,8 @@ tr:hover{
     border-radius:12px;
 
 }
+#appContent{
+
+    display:none;
+
+}
