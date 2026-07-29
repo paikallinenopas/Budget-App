@@ -1,7 +1,8 @@
-/* =================================
-   FINERO 3.0
-================================= */
-
+/*
+=================================
+FINERO 3.0
+=================================
+*/
 console.log("script.js ladattu");
 
 const SUPABASE_URL = "https://aaalfykbovslexndompa.supabase.co";
