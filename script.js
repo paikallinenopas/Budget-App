@@ -775,3 +775,63 @@ document.addEventListener("DOMContentLoaded",()=>{
     paivitaKaikki();
 
 });
+// ==========================
+// SUPABASE AUTH
+// ==========================
+
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+const loginButton = document.getElementById("loginBtn");
+const registerButton = document.getElementById("registerBtn");
+
+async function register() {
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    const { error } = await supabase.auth.signUp({
+        email,
+        password
+    });
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    alert("Käyttäjä luotu! Tarkista sähköpostisi.");
+}
+
+async function login() {
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("appContent").style.display = "block";
+}
+
+registerButton.addEventListener("click", register);
+loginButton.addEventListener("click", login);
+
+supabase.auth.getSession().then(({ data }) => {
+
+    if (data.session) {
+
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("appContent").style.display = "block";
+
+    }
+
+});
