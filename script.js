@@ -153,7 +153,7 @@ function lisaaTapahtuma(){
     const summa = Number(document.getElementById("summa").value);
     const tyyppi = document.getElementById("tyyppi").value;
     const kategoria = document.getElementById("kategoria").value;
-    const paiva = document.getElementById("paiva").value;
+    const paiva = document.getElementById("paivamaara").value;
 
     if(nimi==="" || !summa || !paiva){
 
@@ -197,7 +197,7 @@ function lisaaTapahtuma(){
 
 function piirraTapahtumat(){
 
-    const lista=document.getElementById("tapahtumat");
+    const lista=document.getElementById("tapahtumalista");
 
     if(!lista) return;
 
