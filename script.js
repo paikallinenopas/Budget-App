@@ -47,7 +47,7 @@ async function tallennaTapahtumat() {
     // Lisää uudet tapahtumat
     const data = tapahtumat.map(t => ({
         user_id: user.id,
-        description: t.kuvaus,
+        description: t.nimi,
         amount: t.summa,
         category: t.kategoria,
         type: t.tyyppi,
