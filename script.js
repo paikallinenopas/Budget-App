@@ -163,14 +163,6 @@ if (nimi === "" || !summa || !paiva) {
     return;
 }
 
-    if(nimi==="" || !summa || !paiva){
-
-        alert("Täytä kaikki kentät.");
-
-        return;
-
-    }
-
     tapahtumat.unshift({
 
         id:Date.now(),
