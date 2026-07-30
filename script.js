@@ -154,6 +154,14 @@ function lisaaTapahtuma(){
     const tyyppi = document.getElementById("tyyppi").value;
     const kategoria = document.getElementById("kategoria").value;
     const paiva = document.getElementById("paivamaara").value;
+    console.log("nimi:", nimi);
+console.log("summa:", summa);
+console.log("paiva:", paiva);
+
+if (nimi === "" || !summa || !paiva) {
+    alert("Täytä kaikki kentät.");
+    return;
+}
 
     if(nimi==="" || !summa || !paiva){
 
@@ -187,7 +195,7 @@ function lisaaTapahtuma(){
 
     document.getElementById("nimi").value="";
     document.getElementById("summa").value="";
-    document.getElementById("paiva").value="";
+    document.getElementById("paivamaara").value="";
 
 }
 
