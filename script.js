@@ -154,10 +154,10 @@ function lisaaTapahtuma(){
     const tyyppi = document.getElementById("tyyppi").value;
     const kategoria = document.getElementById("kategoria").value;
     const paiva = document.getElementById("paivamaara").value;
-    console.log("nimi:", nimi);
+    
+console.log("nimi:", nimi);
 console.log("summa:", summa);
 console.log("paiva:", paiva);
-
 if (nimi === "" || !summa || !paiva) {
     alert("Täytä kaikki kentät.");
     return;
