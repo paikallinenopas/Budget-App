@@ -59,8 +59,7 @@ function laskeKaavat(){
             solu.innerText =
             suoritaKaava(
                 arvo.substring(1)
-            );
-
+            ).toString();
         }
 
     });
@@ -73,22 +72,22 @@ function laskeKaavat(){
 
 function suoritaKaava(kaava){
 
-    try{
+    try {
 
         let lasku = kaava;
 
 
         Object.keys(workspaceData)
-        .forEach(cell=>{
+        .forEach(cell => {
 
-            let numero =
-            Number(workspaceData[cell]);
+            let numero = Number(
+                workspaceData[cell]
+            );
 
 
             if(!isNaN(numero)){
 
-                lasku =
-                lasku.replace(
+                lasku = lasku.replaceAll(
                     cell,
                     numero
                 );
@@ -98,17 +97,18 @@ function suoritaKaava(kaava){
         });
 
 
-        return eval(lasku);
+        return Function(
+            "return " + lasku
+        )();
 
 
-    }catch(e){
+    } catch(e){
 
         return "Virhe";
 
     }
 
 }
-
 
 
 /* Käynnistä kun sivu latautuu */
