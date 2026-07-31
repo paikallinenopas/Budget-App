@@ -72,44 +72,33 @@ function laskeKaavat(){
 
 function suoritaKaava(kaava){
 
-    function suoritaKaava(kaava){
-
-    try {
+    try{
 
         let lasku = kaava;
 
+        document
+            .querySelectorAll(".workspace-cell")
+            .forEach((solu)=>{
 
-        document.querySelectorAll("td")
-        .forEach((solu)=>{
+                let nimi = solu.dataset.cell;
+                let arvo = Number(solu.innerText);
 
-            let nimi = solu.dataset.cell;
+                if(nimi && !isNaN(arvo)){
+                    lasku = lasku.replaceAll(nimi, arvo);
+                }
 
-            let arvo = Number(solu.innerText);
+            });
 
+        return Function("return " + lasku)();
 
-            if(nimi && !isNaN(arvo)){
+    }catch(e){
 
-                lasku = lasku.replaceAll(
-                    nimi,
-                    arvo
-                );
-
-            }
-
-        });
-
-
-        return Function(
-            "return " + lasku
-        )();
-
-
-    } catch(e){
-
-        console.log(e);
+        console.error(e);
         return "Virhe";
 
     }
+
+}
 
 
 /* Käynnistä kun sivu latautuu */
@@ -118,3 +107,30 @@ document.addEventListener(
 "DOMContentLoaded",
 kaynnistaWorkspace
 );
+let aktiivinenSolu = null;
+
+document.querySelectorAll(".workspace-cell").forEach((solu)=>{
+
+    solu.addEventListener("click",()=>{
+
+        aktiivinenSolu = solu;
+
+        document.getElementById("activeCell").textContent =
+            solu.dataset.cell;
+
+        document.getElementById("formulaInput").value =
+            solu.innerText;
+
+    });
+
+});
+
+document.getElementById("formulaInput").addEventListener("input",function(){
+
+    if(!aktiivinenSolu) return;
+
+    aktiivinenSolu.innerText = this.value;
+
+    laskeKaavat();
+
+});
