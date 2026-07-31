@@ -72,24 +72,26 @@ function laskeKaavat(){
 
 function suoritaKaava(kaava){
 
+    function suoritaKaava(kaava){
+
     try {
 
         let lasku = kaava;
 
 
-        Object.keys(workspaceData)
-        .forEach(cell => {
+        document.querySelectorAll("td")
+        .forEach((solu)=>{
 
-            let numero = Number(
-                workspaceData[cell]
-            );
+            let nimi = solu.dataset.cell;
+
+            let arvo = Number(solu.innerText);
 
 
-            if(!isNaN(numero)){
+            if(nimi && !isNaN(arvo)){
 
                 lasku = lasku.replaceAll(
-                    cell,
-                    numero
+                    nimi,
+                    arvo
                 );
 
             }
@@ -104,11 +106,10 @@ function suoritaKaava(kaava){
 
     } catch(e){
 
+        console.log(e);
         return "Virhe";
 
     }
-
-}
 
 
 /* Käynnistä kun sivu latautuu */
