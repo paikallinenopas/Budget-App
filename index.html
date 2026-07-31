@@ -914,28 +914,123 @@
     <div class="card">
 
         <h2>Uusi taulukko</h2>
+            <div class="workspace-toolbar">
 
-        <table class="workspace-table">
+    <button class="primary-btn">
+        + Lisää rivi
+    </button>
 
-            <tr>
-                <td contenteditable="true">Nimi</td>
-                <td contenteditable="true">Summa</td>
-                <td contenteditable="true">Yhteensä</td>
-            </tr>
+    <button class="secondary-btn">
+        + Lisää sarake
+    </button>
 
-            <tr>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-            </tr>
+    <button class="secondary-btn">
+        Tyhjennä
+    </button>
 
-            <tr>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-            </tr>
+</div>
 
-        </table>
+
+<div class="workspace-container">
+
+<table class="workspace-table">
+
+<thead>
+
+<tr>
+    <th></th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<th>1</th>
+
+<td 
+class="workspace-cell"
+data-cell="A1"
+contenteditable="true">
+</td>
+
+<td 
+class="workspace-cell"
+data-cell="B1"
+contenteditable="true">
+</td>
+
+<td 
+class="workspace-cell"
+data-cell="C1"
+contenteditable="true">
+</td>
+
+<td 
+class="workspace-cell"
+data-cell="D1"
+contenteditable="true">
+</td>
+
+<td 
+class="workspace-cell"
+data-cell="E1"
+contenteditable="true">
+</td>
+
+</tr>
+
+
+<tr>
+
+<th>2</th>
+
+<td class="workspace-cell" data-cell="A2" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="B2" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="C2" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="D2" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="E2" contenteditable="true"></td>
+
+</tr>
+
+
+<tr>
+
+<th>3</th>
+
+<td class="workspace-cell" data-cell="A3" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="B3" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="C3" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="D3" contenteditable="true"></td>
+<td class="workspace-cell" data-cell="E3" contenteditable="true"></td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="workspace-total">
+
+Yhteensä:
+
+<strong id="workspaceTotal">
+0 €
+</strong>
+
+</div>
 
 <div class="workspace-total">
 

@@ -866,3 +866,106 @@ tr:hover{
     display:none;
 
 }
+/* ===============================
+   FINERO WORKSPACE
+=============================== */
+
+
+.workspace-container{
+
+    background:white;
+    border-radius:22px;
+    padding:25px;
+    overflow:auto;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.08);
+
+}
+
+
+
+.workspace-toolbar{
+
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+
+}
+
+
+
+.workspace-table{
+
+    border-collapse:separate;
+    border-spacing:0;
+
+    min-width:800px;
+
+    width:100%;
+
+}
+
+
+
+.workspace-table th{
+
+    background:#f1f5f9;
+
+    font-weight:700;
+
+    text-align:center;
+
+    padding:12px;
+
+    border:1px solid #e2e8f0;
+
+}
+
+
+
+.workspace-table td{
+
+    height:45px;
+
+    min-width:120px;
+
+    padding:12px;
+
+    border:1px solid #e2e8f0;
+
+    background:white;
+
+    cursor:text;
+
+}
+
+
+
+.workspace-table td:hover{
+
+    background:#f8fafc;
+
+}
+
+
+
+.workspace-table td:focus{
+
+    outline:2px solid #22c55e;
+
+    background:#ffffff;
+
+}
+
+
+
+.workspace-total{
+
+    margin-top:20px;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
