@@ -134,3 +134,74 @@ document.getElementById("formulaInput").addEventListener("input",function(){
     laskeKaavat();
 
 });
+/* ==========================
+   SOLUJEN VALINTA
+========================== */
+
+let aktiivinenSolu = null;
+
+const kaikkiSolut = document.querySelectorAll(".workspace-cell");
+
+kaikkiSolut.forEach((solu) => {
+
+    solu.addEventListener("click", () => {
+
+        if (aktiivinenSolu) {
+            aktiivinenSolu.classList.remove("selected-cell");
+        }
+
+        aktiivinenSolu = solu;
+
+        aktiivinenSolu.classList.add("selected-cell");
+
+        document.getElementById("activeCell").textContent =
+            solu.dataset.cell;
+
+        document.getElementById("formulaInput").value =
+            solu.innerText;
+
+    });
+
+});
+/* ==========================
+   NUOLINÄPPÄIMET
+========================== */
+
+document.addEventListener("keydown", (e)=>{
+
+    if(!aktiivinenSolu) return;
+
+    const nimi = aktiivinenSolu.dataset.cell;
+
+    const sarake = nimi.charCodeAt(0);
+    const rivi = parseInt(nimi.substring(1));
+
+    let uusi = null;
+
+    if(e.key==="ArrowRight")
+        uusi = String.fromCharCode(sarake+1)+rivi;
+
+    if(e.key==="ArrowLeft")
+        uusi = String.fromCharCode(sarake-1)+rivi;
+
+    if(e.key==="ArrowDown")
+        uusi = String.fromCharCode(sarake)+(rivi+1);
+
+    if(e.key==="ArrowUp")
+        uusi = String.fromCharCode(sarake)+(rivi-1);
+
+    if(uusi){
+
+        e.preventDefault();
+
+        const solu = document.querySelector(
+            `[data-cell="${uusi}"]`
+        );
+
+        if(solu){
+            solu.click();
+        }
+
+    }
+
+});

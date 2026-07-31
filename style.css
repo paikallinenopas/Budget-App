@@ -1016,3 +1016,16 @@ tr:hover{
     font-size:15px;
 
 }
+/* ==========================
+   AKTIIVINEN SOLU
+========================== */
+
+.workspace-cell.selected-cell{
+
+    outline:3px solid #1E88E5;
+
+    outline-offset:-3px;
+
+    background:#EAF4FF;
+
+}
