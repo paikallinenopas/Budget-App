@@ -1029,3 +1029,16 @@ tr:hover{
     background:#EAF4FF;
 
 }
+.page-title-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
