@@ -45,3 +45,12 @@ function laskeWorkspaceSumma(){
     }
 
 }
+document.addEventListener("input", function(e){
+
+    if(e.target.closest(".workspace-table")){
+
+        laskeWorkspaceSumma();
+
+    }
+
+});
