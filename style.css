@@ -969,3 +969,50 @@ tr:hover{
     font-weight:700;
 
 }
+/* ===============================
+   FORMULA BAR
+=============================== */
+
+
+.formula-bar{
+
+    display:flex;
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.cell-name{
+
+    width:60px;
+
+    padding:12px;
+
+    background:#f1f5f9;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-weight:700;
+
+}
+
+
+
+.formula-bar input{
+
+    flex:1;
+
+    padding:12px 15px;
+
+    border:1px solid #d0d5dd;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+}
