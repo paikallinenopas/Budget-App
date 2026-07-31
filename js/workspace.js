@@ -1,56 +1,119 @@
 /* =================================
    FINERO WORKSPACE
-   Laskutoiminnot
+   Excel-laskentamoottori
 ================================= */
 
 
-function laskeWorkspaceSumma(){
+let workspaceData = {};
+
+
+/* Käynnistys */
+
+function kaynnistaWorkspace(){
 
     const solut =
-    document.querySelectorAll(
-        ".workspace-table td"
-    );
+    document.querySelectorAll(".workspace-cell");
 
 
-    let summa = 0;
+    solut.forEach(solutieto => {
 
-
-    solut.forEach(solu => {
-
-        const arvo =
-        Number(
-            solu.innerText
-            .replace(",", ".")
+        solutieto.addEventListener(
+            "input",
+            laskeKaavat
         );
 
+    });
 
-        if(!isNaN(arvo)){
-            summa += arvo;
-        }
+}
+
+
+
+/* Kaavojen laskenta */
+
+function laskeKaavat(){
+
+    const solut =
+    document.querySelectorAll(".workspace-cell");
+
+
+    solut.forEach((solu,index)=>{
+
+        let nimi =
+        solu.dataset.cell;
+
+
+        workspaceData[nimi] =
+        solu.innerText;
 
     });
 
 
-    const tulos =
-    document.getElementById(
-        "workspaceTotal"
-    );
+    solut.forEach(solu=>{
+
+        let arvo =
+        solu.innerText;
 
 
-    if(tulos){
+        if(arvo.startsWith("=")){
 
-        tulos.textContent =
-        summa.toLocaleString("fi-FI") + " €";
+            solu.innerText =
+            suoritaKaava(
+                arvo.substring(1)
+            );
+
+        }
+
+    });
+
+}
+
+
+
+/* Kaavojen käsittely */
+
+function suoritaKaava(kaava){
+
+    try{
+
+        let lasku = kaava;
+
+
+        Object.keys(workspaceData)
+        .forEach(cell=>{
+
+            let numero =
+            Number(workspaceData[cell]);
+
+
+            if(!isNaN(numero)){
+
+                lasku =
+                lasku.replace(
+                    cell,
+                    numero
+                );
+
+            }
+
+        });
+
+
+        return eval(lasku);
+
+
+    }catch(e){
+
+        return "Virhe";
 
     }
 
 }
-document.addEventListener("input", function(e){
 
-    if(e.target.closest(".workspace-table")){
 
-        laskeWorkspaceSumma();
 
-    }
+/* Käynnistä kun sivu latautuu */
 
-});
+document.addEventListener(
+"DOMContentLoaded",
+kaynnistaWorkspace
+);
