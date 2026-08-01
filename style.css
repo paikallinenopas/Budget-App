@@ -1251,3 +1251,121 @@ tr:hover{
     margin-bottom:15px;
 
 }
+/* =====================================
+   TOPBAR 2.0
+===================================== */
+
+.topbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.topbar-left{
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+}
+
+.menu-btn{
+
+    width:48px;
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.menu-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.topbar h1{
+
+    font-size:42px;
+    font-weight:800;
+
+}
+
+.topbar p{
+
+    color:#667085;
+
+    margin-top:6px;
+
+}
+
+.topbar-right{
+
+    display:flex;
+    align-items:center;
+    gap:25px;
+
+}
+
+.topbar-date{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#475467;
+
+    font-weight:600;
+
+}
+
+.notification-btn{
+
+    position:relative;
+
+    width:48px;
+    height:48px;
+
+    border:none;
+
+    background:white;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.notification-dot{
+
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    width:10px;
+    height:10px;
+
+    background:#22c55e;
+
+    border-radius:50%;
+
+}

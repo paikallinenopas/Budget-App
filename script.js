@@ -1391,3 +1391,33 @@ function tallennaMuokkaus(){
     suljeMuokkaus();
 
 }
+/* =====================================
+   PÄIVÄMÄÄRÄ TOPBARIIN
+===================================== */
+
+function paivitaPaivamaara(){
+
+    const el =
+    document.getElementById("todayDate");
+
+    if(!el) return;
+
+    const nyt = new Date();
+
+    el.textContent =
+    nyt.toLocaleDateString("fi-FI",{
+
+        day:"numeric",
+
+        month:"long",
+
+        year:"numeric"
+
+    });
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    paivitaPaivamaara
+);
