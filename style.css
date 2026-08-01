@@ -1220,3 +1220,34 @@ tr:hover{
     padding:20px;
 
 }
+.goal-banner{
+
+    height:8px;
+
+    border-radius:16px 16px 0 0;
+
+    margin:-24px -24px 20px;
+
+}
+
+.goal-image{
+
+    width:100%;
+
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    margin-bottom:15px;
+
+}
+
+.goal-category{
+
+    opacity:.65;
+
+    margin-bottom:15px;
+
+}

@@ -932,7 +932,13 @@ function luoTavoite() {
 
         icon: document.getElementById("goalIcon").value,
 
-        pinned: document.getElementById("goalPinned").checked
+        pinned: document.getElementById("goalPinned").checked,
+
+        color: document.getElementById("goalColor").value,
+
+        category: document.getElementById("goalCategory").value,
+
+        image: document.getElementById("goalImage").value,
 
     };
 
@@ -961,6 +967,26 @@ function tyhjennaTavoiteLomake(){
 
 }
 function piirraTavoitteet(){
+
+    <div
+class="goal-banner"
+
+style="background:${goal.color};">
+
+</div>
+${goal.image ?
+
+`<img
+class="goal-image"
+src="${goal.image}">`
+
+
+: ""}
+<p class="goal-category">
+
+${goal.category}
+
+</p>
 
     const container =
     document.getElementById("goalsContainer");
