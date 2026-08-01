@@ -467,25 +467,39 @@ function piirraKaaviot(){
 
 function piirraSaldoMiniChart(){
 
-    const canvas=document.getElementById("saldoMiniChart");
+    const canvas =
+    document.getElementById("saldoMiniChart");
 
     if(!canvas) return;
 
-    let saldo=0;
+    let saldo = 0;
 
-    const historia=[];
+    const historia = [];
 
-    tapahtumat.slice().reverse().forEach(t=>{
+    tapahtumat
+        .slice()
+        .reverse()
+        .forEach(t=>{
 
-        if(t.tyyppi==="Tulo"){
-            saldo+=Number(t.summa);
-        }else{
-            saldo-=Number(t.summa);
-        }
+            if(t.tyyppi==="Tulo"){
 
-        historia.push(saldo);
+                saldo += Number(t.summa);
 
-    });
+            }else{
+
+                saldo -= Number(t.summa);
+
+            }
+
+            historia.push(saldo);
+
+        });
+
+    if(historia.length===0){
+
+        historia.push(0);
+
+    }
 
     if(saldoMiniChart){
 
@@ -493,13 +507,13 @@ function piirraSaldoMiniChart(){
 
     }
 
-    saldoMiniChart=new Chart(canvas,{
+    saldoMiniChart = new Chart(canvas,{
 
         type:"line",
 
         data:{
 
-            labels:historia.map((_,i)=>i+1),
+            labels:historia.map((_,i)=>i),
 
             datasets:[{
 
@@ -507,13 +521,13 @@ function piirraSaldoMiniChart(){
 
                 borderColor:"#22c55e",
 
-                borderWidth:3,
+                borderWidth:4,
 
-                fill:false,
+                pointRadius:0,
 
-                tension:.4,
+                tension:.45,
 
-                pointRadius:0
+                fill:false
 
             }]
 

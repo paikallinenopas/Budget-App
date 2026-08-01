@@ -173,27 +173,68 @@
 
             <!-- PREMIUM SALDO -->
 
-            <div class="balance-card">
+            <div class="hero-card">
 
-                <div>
+    <div class="hero-left">
 
-                    <span class="balance-label">
-                        Kokonaissaldo
-                    </span>
+        <div class="hero-title">
 
-                    <h2 id="saldo">
-                        0 €
-                    </h2>
+            Kokonaissaldo
 
-                    <small>
-                        Päivittyy automaattisesti
-                    </small>
+            <span class="hero-eye">
+                👁
+            </span>
 
-                </div>
+        </div>
 
-                <canvas id="saldoMiniChart"></canvas>
+        <div
+            id="saldo"
+            class="hero-balance">
 
-            </div>
+            0 €
+
+        </div>
+
+        <div class="hero-change">
+
+            <span id="monthChange">
+
+                +0 €
+
+            </span>
+
+            <small>
+
+                tästä kuukaudesta
+
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-right">
+
+        <div class="hero-filter">
+
+            <select id="saldoPeriod">
+
+                <option>Tämä kuukausi</option>
+
+                <option>Tämä vuosi</option>
+
+                <option>Kaikki</option>
+
+            </select>
+
+        </div>
+
+        <canvas id="saldoMiniChart"></canvas>
+
+    </div>
+
+</div>
 
             <!-- KPI -->
 
