@@ -910,3 +910,160 @@ function suljeUusiTavoite(){
         .add("hidden");
 
 }
+/* ===================================
+   SÄÄSTÖTAVOITTEET
+=================================== */
+
+let goals = [];
+
+function luoTavoite() {
+
+    const goal = {
+
+        id: Date.now(),
+
+        name: document.getElementById("goalName").value,
+
+        target: Number(document.getElementById("goalTarget").value),
+
+        saved: Number(document.getElementById("goalSaved").value),
+
+        deadline: document.getElementById("goalDeadline").value,
+
+        icon: document.getElementById("goalIcon").value,
+
+        pinned: document.getElementById("goalPinned").checked
+
+    };
+
+    goals.push(goal);
+
+    piirraTavoitteet();
+
+    suljeUusiTavoite();
+
+    tyhjennaTavoiteLomake();
+
+}
+function tyhjennaTavoiteLomake(){
+
+    goalName.value="";
+
+    goalTarget.value="";
+
+    goalSaved.value="0";
+
+    goalDeadline.value="";
+
+    goalPinned.checked=false;
+
+}
+function piirraTavoitteet(){
+
+    const container =
+    document.getElementById("goalsContainer");
+
+    container.innerHTML="";
+
+    goals.forEach(goal=>{
+
+        const prosentti =
+        Math.min(
+            100,
+            (goal.saved/goal.target)*100
+        );
+
+        container.innerHTML += `
+
+        <div class="card goal-card">
+
+            <div class="goal-top">
+
+                <h2>
+
+                    ${goal.icon}
+
+                    ${goal.name}
+
+                </h2>
+
+                <button
+                    class="star-btn">
+
+                    ${goal.pinned ? "⭐" : "☆"}
+
+                </button>
+
+            </div>
+
+            <h3>
+
+                ${goal.saved.toLocaleString("fi-FI")} €
+
+                /
+
+                ${goal.target.toLocaleString("fi-FI")} €
+
+            </h3>
+
+            <div class="progress">
+
+                <div
+                    class="progress-fill"
+
+                    style="width:${prosentti}%">
+
+                </div>
+
+            </div>
+
+            <p>
+
+                ${prosentti.toFixed(1)} %
+
+            </p>
+
+            <small>
+
+                Deadline:
+
+                ${goal.deadline || "-"}
+
+            </small>
+
+        </div>
+
+        `;
+
+    });
+
+}
+.goal-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.goal-card h3{
+
+    margin:15px 0;
+
+}
+
+.star-btn{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:24px;
+
+}
