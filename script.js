@@ -329,7 +329,17 @@ function paivitaSaldo(){
     if(tapahtumatEl){
         tapahtumatEl.textContent = tapahtumat.length;
     }
+const saasto = tulot - menot;
 
+const saastoEl =
+document.getElementById("saasto");
+
+if(saastoEl){
+
+    saastoEl.textContent =
+    euro(saasto);
+
+}
 }
 
 /* ======================================
@@ -445,6 +455,8 @@ function paivitaKaikki(){
     paivitaTavoite();
 
     piirraKaaviot();
+
+    paivitaGoalCounter();
 
 }
 /* ======================================
@@ -1435,3 +1447,50 @@ document.addEventListener(
     "DOMContentLoaded",
     paivitaPaivamaara
 );
+/* =====================================
+   KPI GOALS
+===================================== */
+
+function paivitaGoalCounter(){
+
+    const valmis =
+    goals.filter(g=>
+
+        g.saved>=g.target
+
+    ).length;
+
+    const count =
+    document.getElementById("goalCount");
+
+    const progress =
+    document.getElementById("goalProgress");
+
+    if(count){
+
+        count.textContent =
+        valmis + " / " + goals.length;
+
+    }
+
+    if(progress){
+
+        if(goals.length===0){
+
+            progress.textContent =
+            "Ei tavoitteita";
+
+        }else{
+
+            progress.textContent =
+            Math.round(
+
+                valmis/goals.length*100
+
+            ) + "% valmiina";
+
+        }
+
+    }
+
+}

@@ -1496,3 +1496,146 @@ tr:hover{
     height:180px !important;
 
 }
+/* =====================================
+   KPI 2.0
+===================================== */
+
+.kpi-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:24px;
+
+    margin:30px 0;
+
+}
+
+.kpi-card{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-start;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    transition:.25s;
+
+}
+
+.kpi-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.kpi-icon{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+.income-card .kpi-icon{
+
+    background:#ECFDF3;
+
+    color:#22c55e;
+
+}
+
+.expense-card .kpi-icon{
+
+    background:#FEF3F2;
+
+    color:#ef4444;
+
+}
+
+.savings-card .kpi-icon{
+
+    background:#EFF8FF;
+
+    color:#2563eb;
+
+}
+
+.goals-card .kpi-icon{
+
+    background:#F4F3FF;
+
+    color:#7c3aed;
+
+}
+
+.kpi-card span{
+
+    color:#667085;
+
+    font-size:15px;
+
+}
+
+.kpi-card h3{
+
+    font-size:34px;
+
+    margin:10px 0;
+
+    font-weight:800;
+
+}
+
+.kpi-card small{
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.income-card small{
+
+    color:#22c55e;
+
+}
+
+.expense-card small{
+
+    color:#ef4444;
+
+}
+
+.savings-card small{
+
+    color:#22c55e;
+
+}
+
+.goals-card small{
+
+    color:#7c3aed;
+
+}
