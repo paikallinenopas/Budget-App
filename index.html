@@ -1159,6 +1159,104 @@ Yhteensä:
 
     </section>
 
+<!-- ===================================== -->
+<!-- UUSI SÄÄSTÖTAVOITE -->
+<!-- ===================================== -->
+
+<div id="goalModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>🎯 Uusi säästötavoite</h2>
+
+            <button
+                class="close-btn"
+                onclick="suljeUusiTavoite()">
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label>Tavoitteen nimi</label>
+
+            <input
+                id="goalName"
+                type="text"
+                placeholder="Esim. Ensiasunto">
+
+            <label>Tavoitesumma (€)</label>
+
+            <input
+                id="goalTarget"
+                type="number"
+                placeholder="10000">
+
+            <label>Säästetty (€)</label>
+
+            <input
+                id="goalSaved"
+                type="number"
+                value="0">
+
+            <label>Deadline</label>
+
+            <input
+                id="goalDeadline"
+                type="date">
+
+            <label>Ikoni</label>
+
+            <select id="goalIcon">
+
+                <option>🚗</option>
+                <option>🏠</option>
+                <option>✈️</option>
+                <option>💻</option>
+                <option>💍</option>
+                <option>🐶</option>
+                <option>💰</option>
+
+            </select>
+
+            <label class="checkbox-row">
+
+                <input
+                    id="goalPinned"
+                    type="checkbox">
+
+                ⭐ Näytä etusivulla
+
+            </label>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-btn"
+                onclick="suljeUusiTavoite()">
+
+                Peruuta
+
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="luoTavoite()">
+
+                Luo tavoite
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 </main>
 
 </div>
