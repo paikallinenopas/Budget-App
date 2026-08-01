@@ -1154,3 +1154,12 @@ tr:hover{
     align-items:center;
 
 }
+.goal-buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:20px;
+
+}

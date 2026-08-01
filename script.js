@@ -940,6 +940,8 @@ function luoTavoite() {
 
     piirraTavoitteet();
 
+    tallennaTavoitteet();
+
     suljeUusiTavoite();
 
     tyhjennaTavoiteLomake();
@@ -988,7 +990,9 @@ function piirraTavoitteet(){
                 </h2>
 
                 <button
-                    class="star-btn">
+                    class="star-btn"
+
+                    onclick="vaihdaSuosikki(${goal.id})">
 
                     ${goal.pinned ? "⭐" : "☆"}
 
@@ -1065,5 +1069,77 @@ function piirraTavoitteet(){
     cursor:pointer;
 
     font-size:24px;
+
+}
+/* ===================================
+   TALLENNUS
+=================================== */
+
+function tallennaTavoitteet(){
+
+    localStorage.setItem(
+        "fineroGoals",
+        JSON.stringify(goals)
+    );
+
+}
+
+function lataaTavoitteet(){
+
+    const data =
+    localStorage.getItem("fineroGoals");
+
+    if(data){
+
+        goals = JSON.parse(data);
+
+        piirraTavoitteet();
+
+    }
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    lataaTavoitteet
+);
+function vaihdaSuosikki(id){
+
+    const goal =
+    goals.find(g=>g.id===id);
+
+    goal.pinned =
+    !goal.pinned;
+
+    tallennaTavoitteet();
+
+    piirraTavoitteet();
+
+}
+<div class="goal-buttons">
+
+<button
+class="secondary-btn"
+
+onclick="poistaTavoite(${goal.id})">
+
+🗑️ Poista
+
+</button>
+
+</div>
+function poistaTavoite(id){
+
+    if(!confirm("Poistetaanko tavoite?"))
+        return;
+
+    goals =
+    goals.filter(
+        g=>g.id!==id
+    );
+
+    tallennaTavoitteet();
+
+    piirraTavoitteet();
 
 }
