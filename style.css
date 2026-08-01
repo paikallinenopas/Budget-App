@@ -1639,3 +1639,64 @@ tr:hover{
     color:#7c3aed;
 
 }
+/* =====================================
+   HOME LAYOUT
+===================================== */
+
+.dashboard-home{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:28px;
+
+    margin-top:30px;
+
+}
+
+.left-column,
+.right-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+.dashboard-goal-card{
+
+    padding:18px 0;
+
+    border-bottom:1px solid #ECECEC;
+
+}
+
+.dashboard-goal-card:last-child{
+
+    border-bottom:none;
+
+}
+
+.dashboard-goal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.dashboard-goal-money{
+
+    margin-top:5px;
+
+    color:#667085;
+
+    font-size:14px;
+
+}
