@@ -1193,3 +1193,30 @@ tr:hover{
     font-size:24px;
 
 }
+.dashboard-goal{
+
+    margin-bottom:22px;
+
+}
+
+.dashboard-goal-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:8px;
+
+}
+
+.empty-text{
+
+    opacity:.6;
+
+    text-align:center;
+
+    padding:20px;
+
+}

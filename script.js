@@ -1109,4 +1109,90 @@ function poistaTavoite(id){
 
     piirraTavoitteet();
 
+    piirraDashboardTavoitteet();
+
+    vaihdaSuosikki()
+
+    poistaTavoite()
+
+    piirraDashboardTavoitteet();
+
+}
+function piirraDashboardTavoitteet(){
+
+    const container =
+    document.getElementById("dashboardGoals");
+
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    const pinned =
+    goals.filter(goal=>goal.pinned);
+
+    if(pinned.length===0){
+
+        container.innerHTML=
+        "<p class='empty-text'>Ei kiinnitettyjä tavoitteita.</p>";
+
+        return;
+
+    }
+
+    pinned.forEach(goal=>{
+
+        const prosentti =
+        Math.min(
+            100,
+            (goal.saved/goal.target)*100
+        );
+
+        container.innerHTML += `
+
+        <div class="dashboard-goal">
+
+            <div class="dashboard-goal-top">
+
+                <strong>
+
+                    ${goal.icon}
+
+                    ${goal.name}
+
+                </strong>
+
+                <span>
+
+                    ${prosentti.toFixed(0)}%
+
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="progress-fill"
+                    style="width:${prosentti}%">
+
+                </div>
+
+            </div>
+
+            <small>
+
+                ${goal.saved.toLocaleString("fi-FI")} €
+
+                /
+
+                ${goal.target.toLocaleString("fi-FI")} €
+
+            </small>
+
+        </div>
+
+        `;
+
+    });
+
 }
