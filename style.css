@@ -1042,3 +1042,115 @@ tr:hover{
     margin-bottom:30px;
 
 }
+/* ==========================
+   GOAL MODAL
+========================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:5000;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.modal-content{
+
+    width:520px;
+
+    max-width:95%;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.2);
+
+}
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.modal-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.modal-body input,
+.modal-body select{
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid #d6d6d6;
+
+    font-size:15px;
+
+}
+
+.modal-footer{
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+}
+
+.close-btn{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+}
+
+.checkbox-row{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+}

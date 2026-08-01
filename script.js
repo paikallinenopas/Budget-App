@@ -889,3 +889,24 @@ sb.auth.getSession().then(({ data }) => {
     }
 
 });
+/* ===================================
+   GOAL MODAL
+=================================== */
+
+function avaaUusiTavoite(){
+
+    document
+        .getElementById("goalModal")
+        .classList
+        .remove("hidden");
+
+}
+
+function suljeUusiTavoite(){
+
+    document
+        .getElementById("goalModal")
+        .classList
+        .add("hidden");
+
+}
