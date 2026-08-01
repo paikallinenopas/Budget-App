@@ -1032,15 +1032,31 @@ function piirraTavoitteet(){
 
             <div class="goal-buttons">
 
-                <button
-                    class="secondary-btn"
-                    onclick="poistaTavoite(${goal.id})">
+    <button
+        class="secondary-btn"
+        onclick="lisaaSaastoa(${goal.id})">
 
-                    🗑️ Poista
+        💰 Lisää
 
-                </button>
+    </button>
 
-            </div>
+    <button
+        class="secondary-btn"
+        onclick="muokkaaTavoitetta(${goal.id})">
+
+        ✏️ Muokkaa
+
+    </button>
+
+    <button
+        class="secondary-btn danger-btn"
+        onclick="poistaTavoite(${goal.id})">
+
+        🗑️
+
+    </button>
+
+</div>
 
         </div>
 
@@ -1194,5 +1210,104 @@ function piirraDashboardTavoitteet(){
         `;
 
     });
+
+}
+function lisaaSaastoa(id){
+
+    const goal = goals.find(g=>g.id===id);
+
+    if(!goal) return;
+
+    const summa = Number(
+        prompt("Kuinka paljon lisätään (€)?")
+    );
+
+    if(isNaN(summa) || summa<=0){
+        return;
+    }
+
+    goal.saved += summa;
+
+    if(goal.saved > goal.target){
+        goal.saved = goal.target;
+    }
+
+    tallennaTavoitteet();
+
+    piirraTavoitteet();
+
+    piirraDashboardTavoitteet();
+
+}
+function muokkaaTavoitetta(id){
+
+    const goal =
+    goals.find(g=>g.id===id);
+
+    if(!goal) return;
+
+    const nimi =
+    prompt(
+        "Tavoitteen nimi",
+        goal.name
+    );
+
+    if(nimi===null) return;
+
+    goal.name = nimi;
+
+    const tavoite =
+    Number(
+        prompt(
+            "Tavoitesumma",
+            goal.target
+        )
+    );
+
+    if(!isNaN(tavoite)){
+
+        goal.target=tavoite;
+
+    }
+
+    tallennaTavoitteet();
+
+    piirraTavoitteet();
+
+    piirraDashboardTavoitteet();
+
+}
+function laskeKuukausiSaasto(goal){
+
+    if(!goal.deadline){
+
+        return 0;
+
+    }
+
+    const nyt = new Date();
+
+    const deadline =
+    new Date(goal.deadline);
+
+    const kuukaudet =
+
+    Math.max(
+
+        1,
+
+        (deadline.getFullYear()-nyt.getFullYear())*12+
+
+        deadline.getMonth()-nyt.getMonth()
+
+    );
+
+    return Math.ceil(
+
+        (goal.target-goal.saved)
+
+        /kuukaudet
+
+    );
 
 }
