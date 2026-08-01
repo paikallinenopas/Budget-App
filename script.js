@@ -1311,3 +1311,57 @@ function laskeKuukausiSaasto(goal){
     );
 
 }
+let editingGoalId = null;
+
+function muokkaaTavoitetta(id){
+
+    const goal =
+    goals.find(g=>g.id===id);
+
+    if(!goal) return;
+
+    editingGoalId = id;
+
+    editGoalName.value = goal.name;
+
+    editGoalTarget.value = goal.target;
+
+    editGoalSaved.value = goal.saved;
+
+    editGoalDeadline.value = goal.deadline;
+
+    editGoalModal.classList.remove("hidden");
+
+}
+function suljeMuokkaus(){
+
+    editGoalModal.classList.add("hidden");
+
+}
+function tallennaMuokkaus(){
+
+    const goal =
+    goals.find(g=>g.id===editingGoalId);
+
+    if(!goal) return;
+
+    goal.name = editGoalName.value;
+
+    goal.target =
+    Number(editGoalTarget.value);
+
+    goal.saved =
+    Number(editGoalSaved.value);
+
+    goal.deadline =
+    editGoalDeadline.value;
+
+    tallennaTavoitteet();
+
+    piirraTavoitteet();
+
+    piirraDashboardTavoitteet();
+
+    suljeMuokkaus();
+
+}

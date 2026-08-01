@@ -1292,6 +1292,69 @@ Yhteensä:
     </div>
 
 </div>
+<div id="editGoalModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>✏️ Muokkaa tavoitetta</h2>
+
+            <button
+                class="close-btn"
+                onclick="suljeMuokkaus()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <input
+                id="editGoalName"
+                placeholder="Tavoitteen nimi">
+
+            <input
+                id="editGoalTarget"
+                type="number"
+                placeholder="Tavoitesumma">
+
+            <input
+                id="editGoalSaved"
+                type="number"
+                placeholder="Säästetty">
+
+            <input
+                id="editGoalDeadline"
+                type="date">
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-btn"
+                onclick="suljeMuokkaus()">
+
+                Peruuta
+
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="tallennaMuokkaus()">
+
+                Tallenna
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 </main>
 
 </div>
