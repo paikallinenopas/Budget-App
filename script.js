@@ -982,16 +982,12 @@ function piirraTavoitteet(){
             <div class="goal-top">
 
                 <h2>
-
                     ${goal.icon}
-
                     ${goal.name}
-
                 </h2>
 
                 <button
                     class="star-btn"
-
                     onclick="vaihdaSuosikki(${goal.id})">
 
                     ${goal.pinned ? "⭐" : "☆"}
@@ -1014,7 +1010,6 @@ function piirraTavoitteet(){
 
                 <div
                     class="progress-fill"
-
                     style="width:${prosentti}%">
 
                 </div>
@@ -1035,6 +1030,18 @@ function piirraTavoitteet(){
 
             </small>
 
+            <div class="goal-buttons">
+
+                <button
+                    class="secondary-btn"
+                    onclick="poistaTavoite(${goal.id})">
+
+                    🗑️ Poista
+
+                </button>
+
+            </div>
+
         </div>
 
         `;
@@ -1042,35 +1049,7 @@ function piirraTavoitteet(){
     });
 
 }
-.goal-top{
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:15px;
-
-}
-
-.goal-card h3{
-
-    margin:15px 0;
-
-}
-
-.star-btn{
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
-
-    font-size:24px;
-
-}
 /* ===================================
    TALLENNUS
 =================================== */
@@ -1116,18 +1095,6 @@ function vaihdaSuosikki(id){
     piirraTavoitteet();
 
 }
-<div class="goal-buttons">
-
-<button
-class="secondary-btn"
-
-onclick="poistaTavoite(${goal.id})">
-
-🗑️ Poista
-
-</button>
-
-</div>
 function poistaTavoite(id){
 
     if(!confirm("Poistetaanko tavoite?"))
