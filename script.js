@@ -1524,7 +1524,7 @@ function paivitaGoalCounter(){
 
 }
 function haeTapahtumaIkoni(kategoria){
-
+    }
     switch(kategoria){
 
         case "Ruoka":
