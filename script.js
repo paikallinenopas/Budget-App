@@ -197,57 +197,89 @@ if (nimi === "" || !summa || !paiva) {
 
 function piirraTapahtumat(){
 
-    const lista=document.getElementById("tapahtumalista");
+    function piirraTapahtumat(){
 
-    if(!lista) return;
+    const container =
+    document.getElementById("recentTransactions");
 
-    lista.innerHTML="";
+    if(!container) return;
 
-    tapahtumat.forEach(t=>{
+    container.innerHTML="";
 
-        const li=document.createElement("li");
+    const viimeiset =
+    tapahtumat.slice(0,6);
 
-        li.innerHTML=`
+    if(viimeiset.length===0){
 
-            <div>
+        container.innerHTML=`
 
-                <strong>${t.nimi}</strong><br>
+        <div class="empty-text">
 
-                <small>${t.kategoria} • ${t.paiva}</small>
+            Ei tapahtumia vielä.
 
-            </div>
-
-            <div>
-
-                <strong class="${t.tyyppi==="Tulo"?"positive":"negative"}">
-
-                    ${t.tyyppi==="Tulo"?"+":"-"}${euro(t.summa)}
-
-                </strong>
-
-                <br>
-
-                <button onclick="muokkaaTapahtuma(${t.id})">
-
-                    Muokkaa
-
-                </button>
-
-                <button onclick="poistaTapahtuma(${t.id})">
-
-                    Poista
-
-                </button>
-
-            </div>
+        </div>
 
         `;
 
-        lista.appendChild(li);
+        return;
+
+    }
+
+    viimeiset.forEach(t=>{
+
+        container.innerHTML += `
+
+        <div class="transaction-card">
+
+            <div class="transaction-left">
+
+                <div class="transaction-icon">
+
+                    ${haeTapahtumaIkoni(t.kategoria)}
+
+                </div>
+
+                <div>
+
+                    <div class="transaction-title">
+
+                        ${t.nimi}
+
+                    </div>
+
+                    <div class="transaction-sub">
+
+                        ${t.kategoria}
+
+                        •
+
+                        ${t.paiva}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="transaction-price
+            ${t.tyyppi==="Tulo"
+            ?"income":"expense"}">
+
+                ${t.tyyppi==="Tulo"
+                ?"+":"-"}
+
+                ${euro(t.summa)}
+
+            </div>
+
+        </div>
+
+        `;
 
     });
 
 }
+
 
 /* ======================================
    POISTO
@@ -1507,6 +1539,37 @@ function paivitaGoalCounter(){
             ) + "% valmiina";
 
         }
+
+    }
+
+}
+function haeTapahtumaIkoni(kategoria){
+
+    switch(kategoria){
+
+        case "Ruoka":
+            return "🍔";
+
+        case "Auto":
+            return "🚗";
+
+        case "Asuminen":
+            return "🏠";
+
+        case "Palkka":
+            return "💼";
+
+        case "Sijoitukset":
+            return "📈";
+
+        case "Liikenne":
+            return "🚌";
+
+        case "Vapaa-aika":
+            return "🎮";
+
+        default:
+            return "💳";
 
     }
 

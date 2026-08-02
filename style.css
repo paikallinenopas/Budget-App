@@ -1700,3 +1700,116 @@ tr:hover{
     font-size:14px;
 
 }
+/* ===============================
+   RECENT TRANSACTIONS
+================================ */
+
+#recentTransactions{
+
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+
+}
+
+.transaction-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:#FAFAFA;
+
+    transition:.25s;
+
+}
+
+.transaction-card:hover{
+
+    background:#F2F4F7;
+
+    transform:translateY(-2px);
+
+}
+
+.transaction-left{
+
+    display:flex;
+
+    gap:16px;
+
+    align-items:center;
+
+}
+
+.transaction-icon{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:white;
+
+    font-size:22px;
+
+}
+
+.transaction-title{
+
+    font-size:17px;
+
+    font-weight:700;
+
+}
+
+.transaction-sub{
+
+    margin-top:4px;
+
+    color:#98A2B3;
+
+    font-size:14px;
+
+}
+
+.transaction-price{
+
+    font-size:20px;
+
+    font-weight:800;
+
+}
+
+.income{
+
+    color:#22c55e;
+
+}
+
+.expense{
+
+    color:#ef4444;
+
+}
+
+.recent-footer{
+
+    margin-top:18px;
+
+    text-align:right;
+
+}
