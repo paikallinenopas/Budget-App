@@ -361,6 +361,7 @@ function paivitaSaldo(){
     if(tapahtumatEl){
         tapahtumatEl.textContent = tapahtumat.length;
     }
+}
 const saasto = tulot - menot;
 
 const saastoEl =
