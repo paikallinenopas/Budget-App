@@ -1030,19 +1030,6 @@ function piirraTavoitteet(){
 
 style="background:${goal.color};">
 
-</div>
-${goal.image ?
-
-`<img
-class="goal-image"
-src="${goal.image}">`
-
-
-: ""}
-<p class="goal-category">
-
-${goal.category}
-
 </p>
 
     const container =
