@@ -1200,7 +1200,6 @@ function poistaTavoite(id){
 
 }
 
-}
 function lisaaSaastoa(id){
 
     const goal = goals.find(g=>g.id===id);
