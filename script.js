@@ -1026,12 +1026,6 @@ function tyhjennaTavoiteLomake(){
 }
 function piirraTavoitteet(){
 
-<div class="goal-banner"
-
-style="background:${goal.color};">
-
-</p>
-
     const container =
     document.getElementById("goalsContainer");
 
