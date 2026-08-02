@@ -1552,5 +1552,4 @@ function haeTapahtumaIkoni(kategoria){
             return "💳";
 
     }
-
 }
