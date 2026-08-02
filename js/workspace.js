@@ -138,8 +138,6 @@ document.getElementById("formulaInput").addEventListener("input",function(){
    SOLUJEN VALINTA
 ========================== */
 
-let aktiivinenSolu = null;
-
 const kaikkiSolut = document.querySelectorAll(".workspace-cell");
 
 kaikkiSolut.forEach((solu) => {
