@@ -240,8 +240,6 @@
 
             <div class="kpi-grid">
 
-                <div class="kpi-grid">
-
     <div class="kpi-card income-card">
 
         <div class="kpi-icon">
@@ -342,8 +340,6 @@
 
             <!-- YLÄRIVI -->
 
-            <div class="dashboard-grid">
-
                 <!-- TULOT JA MENOT -->
 
                 <div class="dashboard-home">
@@ -392,10 +388,6 @@
 
 </div>
 
-            
-
-            </div>
-
             <!-- TOINEN RIVI -->
 
             <div class="dashboard-grid">
@@ -410,7 +402,19 @@
 
                     </div>
 
-                    <section id="tavoitteet" class="page">
+                    <div id="recentTransactions"></div>
+
+                    <div class="card-footer">
+
+                        <button
+                            class="text-btn"
+                            onclick="naytaSivu('tapahtumat')">
+
+                            Näytä kaikki →
+
+                        </button>
+
+                    </div>
 
                     </ul>
 
@@ -444,10 +448,6 @@
 
                 </div>
                 <div class="card">
-
-    <div class="card-header">
-
-        <h2>⭐ Tärkeimmät säästötavoitteet</h2>
 
     </div>
 
@@ -651,7 +651,7 @@
 
             </div>
 
-            <section id="tavoitteet" class="page">
+            <ul id="tapahtumalista">
                 
             </ul>
 
@@ -663,6 +663,10 @@
     <!-- ========================= -->
 
     <div class="page-title">
+
+    <section
+    id="tavoitteet"
+    class="page">
 
     <div class="page-title-row">
 
@@ -706,56 +710,6 @@ ${laskeKuukausiSaasto(goal).toLocaleString("fi-FI")} €
     <div id="goalsContainer" class="goal-grid">
 
 </div>
-
-</div>
-
-        <div class="goal-grid">
-
-            <div class="card">
-
-                <h2>🚗 Auto</h2>
-
-                <h3>6 200 € / 10 000 €</h3>
-
-                <div class="progress">
-                    <div class="progress-fill" style="width:62%"></div>
-                </div>
-
-                <p>62 % saavutettu</p>
-
-            </div>
-
-            <div class="card">
-
-                <h2>🏝️ Lomamatka</h2>
-
-                <h3>1 450 € / 2 500 €</h3>
-
-                <div class="progress">
-                    <div class="progress-fill" style="width:58%"></div>
-                </div>
-
-                <p>58 % saavutettu</p>
-
-            </div>
-
-            <div class="card">
-
-                <h2>📈 Sijoitukset</h2>
-
-                <h3>2 300 € / 5 000 €</h3>
-
-                <div class="progress">
-                    <div class="progress-fill" style="width:46%"></div>
-                </div>
-
-                <p>46 % saavutettu</p>
-
-            </div>
-
-        </div>
-
-    </section>
 
     <!-- ========================= -->
     <!-- TILASTOT -->
@@ -1399,11 +1353,6 @@ Yhteensä:
     <option>❤️ Muu</option>
 
 </select>
-
-<label>Kuvan URL (valinnainen)</label>
-
-<input
-    id="goalImage"
     placeholder="https://...">
             <button
                 class="primary-btn"
@@ -1489,7 +1438,7 @@ Yhteensä:
 <script src="script.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/workspace.js"></script>
-<script src="js/formulaEngine.js">
-<script src="js/formulaTests.js">
+<script src="js/formulaEngine.js"></script>
+<script src="js/formulaTests.js"></script>
 </body>
 </html>
